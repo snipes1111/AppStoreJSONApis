@@ -17,6 +17,7 @@
 		CE7AF37129B21A56002107FE /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF37029B21A56002107FE /* MainTabBarController.swift */; };
 		CE7AF37329B2440B002107FE /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF37229B2440B002107FE /* Icons.swift */; };
 		CE7AF37529B24D03002107FE /* AppSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF37429B24D03002107FE /* AppSearchController.swift */; };
+		CE7AF37829B2634D002107FE /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF37729B2634D002107FE /* SearchResultCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		CE7AF37029B21A56002107FE /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		CE7AF37229B2440B002107FE /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		CE7AF37429B24D03002107FE /* AppSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchController.swift; sourceTree = "<group>"; };
+		CE7AF37729B2634D002107FE /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				CE7AF35C29B21400002107FE /* SceneDelegate.swift */,
 				CE7AF37629B24D0F002107FE /* Controller */,
 				CE7AF37229B2440B002107FE /* Icons.swift */,
+				CE7AF37729B2634D002107FE /* SearchResultCell.swift */,
 				CE7AF35E29B21400002107FE /* ViewController.swift */,
 				CE7AF36029B21400002107FE /* Main.storyboard */,
 				CE7AF36329B21408002107FE /* Assets.xcassets */,
@@ -159,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE7AF37829B2634D002107FE /* SearchResultCell.swift in Sources */,
 				CE7AF35F29B21400002107FE /* ViewController.swift in Sources */,
 				CE7AF37529B24D03002107FE /* AppSearchController.swift in Sources */,
 				CE7AF35B29B21400002107FE /* AppDelegate.swift in Sources */,

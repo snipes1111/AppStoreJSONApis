@@ -15,8 +15,8 @@ class AppSearchController: UICollectionViewController {
         super.viewDidLoad()
         
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        collectionView.backgroundColor = .red
+        self.collectionView!.register(SearchResultCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.backgroundColor = .white
     }
     
     init() {
@@ -28,31 +28,24 @@ class AppSearchController: UICollectionViewController {
     }
     
 
-    /*
+
     // MARK: - Navigation
 
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return 5
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
         return cell
     }
-     */
+    
+    
+    
+    
 
     // MARK: UICollectionViewDelegate
 
@@ -84,4 +77,10 @@ class AppSearchController: UICollectionViewController {
     
     }
     */
+}
+
+extension AppSearchController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: collectionView.bounds.width, height: 250)
+    }
 }
