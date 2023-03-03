@@ -15,6 +15,8 @@
 		CE7AF36729B21408002107FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7AF36529B21408002107FE /* LaunchScreen.storyboard */; };
 		CE7AF36F29B21465002107FE /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CE7AF36E29B21465002107FE /* .gitignore */; };
 		CE7AF37129B21A56002107FE /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF37029B21A56002107FE /* MainTabBarController.swift */; };
+		CE7AF37329B2440B002107FE /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF37229B2440B002107FE /* Icons.swift */; };
+		CE7AF37529B24D03002107FE /* AppSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF37429B24D03002107FE /* AppSearchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		CE7AF36829B21408002107FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE7AF36E29B21465002107FE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CE7AF37029B21A56002107FE /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		CE7AF37229B2440B002107FE /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
+		CE7AF37429B24D03002107FE /* AppSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +67,8 @@
 			children = (
 				CE7AF35A29B21400002107FE /* AppDelegate.swift */,
 				CE7AF35C29B21400002107FE /* SceneDelegate.swift */,
-				CE7AF37029B21A56002107FE /* MainTabBarController.swift */,
+				CE7AF37629B24D0F002107FE /* Controller */,
+				CE7AF37229B2440B002107FE /* Icons.swift */,
 				CE7AF35E29B21400002107FE /* ViewController.swift */,
 				CE7AF36029B21400002107FE /* Main.storyboard */,
 				CE7AF36329B21408002107FE /* Assets.xcassets */,
@@ -71,6 +76,15 @@
 				CE7AF36829B21408002107FE /* Info.plist */,
 			);
 			path = AppStoreJSONApis;
+			sourceTree = "<group>";
+		};
+		CE7AF37629B24D0F002107FE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE7AF37029B21A56002107FE /* MainTabBarController.swift */,
+				CE7AF37429B24D03002107FE /* AppSearchController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,8 +160,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7AF35F29B21400002107FE /* ViewController.swift in Sources */,
+				CE7AF37529B24D03002107FE /* AppSearchController.swift in Sources */,
 				CE7AF35B29B21400002107FE /* AppDelegate.swift in Sources */,
 				CE7AF37129B21A56002107FE /* MainTabBarController.swift in Sources */,
+				CE7AF37329B2440B002107FE /* Icons.swift in Sources */,
 				CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
