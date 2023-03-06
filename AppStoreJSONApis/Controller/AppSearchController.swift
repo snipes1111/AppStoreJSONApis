@@ -17,6 +17,7 @@ class AppSearchController: UICollectionViewController {
         // Register cell classes
         self.collectionView!.register(SearchResultCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.backgroundColor = .white
+        fetchItunesApps()
     }
     
     init() {
@@ -27,11 +28,41 @@ class AppSearchController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    // MARK: - Fetching data
+    private func fetchItunesApps() {
+        let searchURL = "https://itunes.apple.com/search?term=instagram&entity=software"
+        guard let searchURL = URL(string: searchURL) else { return }
+        
+        // fetch data from internet
+        URLSession.shared.dataTask(with: searchURL) { data, response, error in
+            
+            if let err = error {
+                print("Error URLrequest:", err)
+            }
+            
+            /*
+            // success
+            print(data)
+            print(String(data: data!, encoding: .utf8))
+            */
+            
+            guard let searchData = data else { return }
+            
+            do {
+                let searchResults = try JSONDecoder().decode(SearchResults.self, from: searchData)
+                print(searchResults.resultCount)
+                searchResults.results.forEach { print($0.trackName, $0.primaryGenreName) }
+            } catch let jsonErr {
+                print("JSON error:", jsonErr)
+            }
+            
+        }.resume() // fires off the request
+        
+    }
+    
 
     // MARK: - Navigation
-
-
+    
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -39,7 +70,8 @@ class AppSearchController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SearchResultCell
+        cell.categoryLabel.text = "This is my app"
         return cell
     }
     

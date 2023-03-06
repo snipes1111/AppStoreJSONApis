@@ -9,7 +9,7 @@ import UIKit
 
 class SearchResultCell: UICollectionViewCell {
     
-    private let appIconImageView: UIImageView = {
+    let appIconImageView: UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = .red
         iv.widthAnchor.constraint(equalToConstant: 64).isActive = true
@@ -18,25 +18,25 @@ class SearchResultCell: UICollectionViewCell {
         return iv
     }()
     
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "App name"
         return label
     }()
     
-    private let categoryLabel: UILabel = {
+    let categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Photos & Videos"
         return label
     }()
     
-    private let ratingLabel: UILabel = {
+    let ratingLabel: UILabel = {
         let label = UILabel()
         label.text = "9.27M"
         return label
     }()
     
-    private let getButton: UIButton = {
+    let getButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("GET", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 14)
