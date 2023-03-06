@@ -29,86 +29,77 @@ class AppSearchController: UICollectionViewController {
     }
     
     // MARK: - Fetching data
+    private var searchResult = [Result]()
+    
     private func fetchItunesApps() {
-        let searchURL = "https://itunes.apple.com/search?term=instagram&entity=software"
-        guard let searchURL = URL(string: searchURL) else { return }
         
-        // fetch data from internet
-        URLSession.shared.dataTask(with: searchURL) { data, response, error in
+        Service.shared.fetchData { result, error in
             
             if let err = error {
-                print("Error URLrequest:", err)
+                print("Failed to fetch apps: ", err)
+                return
             }
             
-            /*
-            // success
-            print(data)
-            print(String(data: data!, encoding: .utf8))
-            */
+            self.searchResult = result
             
-            guard let searchData = data else { return }
-            
-            do {
-                let searchResults = try JSONDecoder().decode(SearchResults.self, from: searchData)
-                print(searchResults.resultCount)
-                searchResults.results.forEach { print($0.trackName, $0.primaryGenreName) }
-            } catch let jsonErr {
-                print("JSON error:", jsonErr)
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
             }
-            
-        }.resume() // fires off the request
-        
+        }
     }
     
-
+    
     // MARK: - Navigation
     
     // MARK: UICollectionViewDataSource
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return searchResult.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SearchResultCell
-        cell.categoryLabel.text = "This is my app"
+        let result = self.searchResult[indexPath.item]
+        cell.categoryLabel.text = result.primaryGenreName
+        cell.nameLabel.text = result.trackName
+        cell.ratingLabel.text = String(result.userRatingCount ?? 0)
         return cell
     }
     
     
     
     
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
-    }
-    */
+    // MARK: UICollectionViewDelegate
+    
+    /*
+     // Uncomment this method to specify if the specified item should be highlighted during tracking
+     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+     return true
+     }
+     */
+    
+    /*
+     // Uncomment this method to specify if the specified item should be selected
+     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+     return true
+     }
+     */
+    
+    /*
+     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+     return false
+     }
+     
+     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+     return false
+     }
+     
+     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+     
+     }
+     */
 }
 
 extension AppSearchController: UICollectionViewDelegateFlowLayout {

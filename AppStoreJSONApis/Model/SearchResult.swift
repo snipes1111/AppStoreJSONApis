@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchResults: Decodable {
+struct SearchResult: Decodable {
     var resultCount: Int
     var results: [Result]
 }
@@ -15,6 +15,8 @@ struct SearchResults: Decodable {
 struct Result: Decodable {
     var trackName: String
     var primaryGenreName: String
-    var userRatingCount: Int
+    var userRatingCount: Int?
+    var artworkUrl100: String // app icon 100*100
+    var screenshotUrls: [String]
     
 }
