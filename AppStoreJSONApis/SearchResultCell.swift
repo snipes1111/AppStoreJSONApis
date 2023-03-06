@@ -9,12 +9,32 @@ import UIKit
 
 class SearchResultCell: UICollectionViewCell {
     
+    var result: Result! {
+        didSet {
+            categoryLabel.text = result.primaryGenreName
+            nameLabel.text = result.trackName
+            ratingLabel.text = String(result.userRatingCount ?? 0)
+            
+            // import images
+            let url = URL(string: result.artworkUrl100)
+            appIconImageView.sd_setImage(with: url)
+            screenshotImageViewOne.sd_setImage(with: URL(string: result.screenshotUrls[0]))
+            if result.screenshotUrls.count > 1 {
+                screenshotImageViewTwo.sd_setImage(with: URL(string: result.screenshotUrls[1]))
+            }
+            if result.screenshotUrls.count > 2 {
+                screenshotImageViewThree.sd_setImage(with: URL(string: result.screenshotUrls[2]))
+            }
+        }
+    }
+    
     let appIconImageView: UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = .red
         iv.widthAnchor.constraint(equalToConstant: 64).isActive = true
         iv.heightAnchor.constraint(equalToConstant: 64).isActive = true
         iv.layer.cornerRadius = 12
+        iv.clipsToBounds = true
         return iv
     }()
     
@@ -55,6 +75,11 @@ class SearchResultCell: UICollectionViewCell {
     private func getImageView() -> UIImageView {
         let imageView = UIImageView()
         imageView.backgroundColor = .blue
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
+        imageView.layer.cornerRadius = 8
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }
     
