@@ -8,14 +8,14 @@
 import UIKit
 import SDWebImage
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "SearchCell"
 
-class AppSearchController: UICollectionViewController {
+class AppSearchController: BaseSectionController {
     
     private var searchController = UISearchController(searchResultsController: nil)
     private var timer: Timer?
     private var searchLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Please, enter search term above..."
         label.textAlignment = .center
         label.font = .boldSystemFont(ofSize: 20)
@@ -29,18 +29,9 @@ class AppSearchController: UICollectionViewController {
         collectionView.addSubview(searchLabel)
         searchLabel.fillSuperview(padding: .init(top: 100, left: 50, bottom: 0, right: 50))
         
-        // Register cell classes
         self.collectionView!.register(SearchResultCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.backgroundColor = .white
         setUpSearchBar()
-    }
-    
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Setup SearchBar
@@ -97,45 +88,11 @@ class AppSearchController: UICollectionViewController {
         return cell
     }
     
-    
-    
-    
-    
-    // MARK: UICollectionViewDelegate
-    
-    /*
-     // Uncomment this method to specify if the specified item should be highlighted during tracking
-     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    /*
-     // Uncomment this method to specify if the specified item should be selected
-     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    /*
-     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-     
-     }
-     */
 }
 
 extension AppSearchController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: collectionView.bounds.width, height: 350)
+        return .init(width: collectionView.frame.width, height: 350)
     }
 }
 
@@ -154,7 +111,7 @@ extension AppSearchController: UISearchBarDelegate {
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
-        }
+            }
         })
     }
 }
