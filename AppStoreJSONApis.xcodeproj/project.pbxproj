@@ -12,6 +12,8 @@
 		CE26A9A929B784CA00EDEE56 /* BaseSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9A829B784CA00EDEE56 /* BaseSectionController.swift */; };
 		CE26A9AB29B7877100EDEE56 /* AppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9AA29B7877100EDEE56 /* AppCell.swift */; };
 		CE26A9AE29B798B700EDEE56 /* AppsHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9AD29B798B700EDEE56 /* AppsHorizontalController.swift */; };
+		CE26A9B029B7B1DE00EDEE56 /* AppRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9AF29B7B1DE00EDEE56 /* AppRowCell.swift */; };
+		CE26A9B229B7B27600EDEE56 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9B129B7B27600EDEE56 /* Extensions.swift */; };
 		CE7AF35B29B21400002107FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF35A29B21400002107FE /* AppDelegate.swift */; };
 		CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF35C29B21400002107FE /* SceneDelegate.swift */; };
 		CE7AF35F29B21400002107FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF35E29B21400002107FE /* ViewController.swift */; };
@@ -36,6 +38,8 @@
 		CE26A9A829B784CA00EDEE56 /* BaseSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSectionController.swift; sourceTree = "<group>"; };
 		CE26A9AA29B7877100EDEE56 /* AppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCell.swift; sourceTree = "<group>"; };
 		CE26A9AD29B798B700EDEE56 /* AppsHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHorizontalController.swift; sourceTree = "<group>"; };
+		CE26A9AF29B7B1DE00EDEE56 /* AppRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRowCell.swift; sourceTree = "<group>"; };
+		CE26A9B129B7B27600EDEE56 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CE7AF35729B21400002107FE /* AppStoreJSONApis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppStoreJSONApis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7AF35A29B21400002107FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE7AF35C29B21400002107FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				CE26A9AA29B7877100EDEE56 /* AppCell.swift */,
+				CE26A9AF29B7B1DE00EDEE56 /* AppRowCell.swift */,
 				CE7AF37729B2634D002107FE /* SearchResultCell.swift */,
 			);
 			path = Views;
@@ -149,6 +154,7 @@
 			children = (
 				CE7AF37A29B38298002107FE /* UIView+Layout.swift */,
 				CE7AF37C29B38C40002107FE /* VerticalStackView.swift */,
+				CE26A9B129B7B27600EDEE56 /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -306,6 +312,7 @@
 				CE26A9AB29B7877100EDEE56 /* AppCell.swift in Sources */,
 				CE7AF37D29B38C40002107FE /* VerticalStackView.swift in Sources */,
 				CE7AF38029B6362C002107FE /* SearchResult.swift in Sources */,
+				CE26A9B029B7B1DE00EDEE56 /* AppRowCell.swift in Sources */,
 				CE7AF37829B2634D002107FE /* SearchResultCell.swift in Sources */,
 				CE26A9AE29B798B700EDEE56 /* AppsHorizontalController.swift in Sources */,
 				CE7AF35F29B21400002107FE /* ViewController.swift in Sources */,
@@ -315,6 +322,7 @@
 				CE26A9A929B784CA00EDEE56 /* BaseSectionController.swift in Sources */,
 				CE7AF37129B21A56002107FE /* MainTabBarController.swift in Sources */,
 				CE7AF37329B2440B002107FE /* Icons.swift in Sources */,
+				CE26A9B229B7B27600EDEE56 /* Extensions.swift in Sources */,
 				CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */,
 				CE26A9A729B7820C00EDEE56 /* AppController.swift in Sources */,
 			);
