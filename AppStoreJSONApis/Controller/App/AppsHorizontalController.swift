@@ -15,10 +15,9 @@ class AppsHorizontalController: BaseSectionController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = .blue
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         layout.scrollDirection = .horizontal
         
         

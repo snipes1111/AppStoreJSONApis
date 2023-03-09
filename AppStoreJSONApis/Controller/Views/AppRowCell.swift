@@ -16,13 +16,18 @@ class AppRowCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .purple
         appIconImageView.backgroundColor = .red
+        appIconImageView.constrainWidth(constant: 64)
+        appIconImageView.constrainHeight(constant: 64)
         getButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
         getButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        getButton.constrainWidth(constant: 80)
+        getButton.constrainHeight(constant: 32)
+        getButton.layer.cornerRadius = 16
         
-        
-        let overalStackView = UIStackView(arrangedSubviews: [appIconImageView, appNameLabel, getButton])
+        let overalStackView = UIStackView(arrangedSubviews: [appIconImageView,
+                                                             VerticalStackView(arrangedSubviews: [appNameLabel, companyNameLabel], spacing: 4),
+                                                             getButton])
         overalStackView.spacing = 12
         overalStackView.alignment = .center
         self.addSubview(overalStackView)

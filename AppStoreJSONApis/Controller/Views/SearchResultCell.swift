@@ -62,7 +62,7 @@ class SearchResultCell: UICollectionViewCell {
         button.backgroundColor = UIColor(white: 0.95, alpha: 1)
         button.widthAnchor.constraint(equalToConstant: 80).isActive = true
         button.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 16
         return button
     }()
     

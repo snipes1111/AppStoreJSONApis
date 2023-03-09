@@ -8,14 +8,14 @@
 import UIKit
 
 private let reuseIdentifier = "AppCell"
+private let headerId = "AppHeader"
 
-class AppController: BaseSectionController {
+class AppPageController: BaseSectionController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(AppCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        self.collectionView.backgroundColor = .yellow
-
+        self.collectionView.register(AppHeadeView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         
     }
 
@@ -39,8 +39,17 @@ class AppController: BaseSectionController {
 }
 
 
-extension AppController: UICollectionViewDelegateFlowLayout {
+extension AppPageController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        .init(width: view.frame.width, height: 300)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+        return view
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         .init(width: view.frame.width, height: 300)
     }
 }
