@@ -29,7 +29,7 @@ class AppSearchController: BaseSectionController {
         collectionView.addSubview(searchLabel)
         searchLabel.fillSuperview(padding: .init(top: 100, left: 50, bottom: 0, right: 50))
         
-        self.collectionView!.register(SearchResultCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView!.register(SearchResultCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.backgroundColor = .white
         setUpSearchBar()
     }

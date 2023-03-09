@@ -9,29 +9,40 @@ import UIKit
 
 private let reuseIdentifier = "AppCell"
 private let headerId = "AppHeader"
+private let sectionSize: CGFloat = 300
 
 class AppPageController: BaseSectionController {
+    
+    private var topFreeApps: AppResult?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView!.register(AppCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        self.collectionView.register(AppHeadeView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
-        
+        collectionView!.register(AppCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(AppHeadeView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+        Service.shared.fetchGames { appRes, err in
+            
+            if let err = err {
+                print("Failed to fetch app: ", err)
+            }
+            
+            guard let appResult = appRes else { return }
+            self.topFreeApps = appResult
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
-
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
 
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AppCell
+        cell.appSectionLabel.text = topFreeApps?.feed.title ?? ""
+        cell.horizontalViewController.appResult = topFreeApps
+        cell.horizontalViewController.collectionView.reloadData()
         return cell
     }
 
@@ -41,7 +52,7 @@ class AppPageController: BaseSectionController {
 
 extension AppPageController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: view.frame.width, height: 300)
+        .init(width: view.frame.width, height: sectionSize)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -50,6 +61,6 @@ extension AppPageController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        .init(width: view.frame.width, height: 300)
+        .init(width: view.frame.width, height: sectionSize)
     }
 }

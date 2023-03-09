@@ -20,9 +20,9 @@ extension UILabel {
 extension UIImageView {
     convenience init(cornerRadius: CGFloat) {
         self.init(frame: .zero)
-        self.layer.cornerRadius = cornerRadius
-        self.clipsToBounds = true
-        self.contentMode = .scaleAspectFill
+        layer.cornerRadius = cornerRadius
+        clipsToBounds = true
+        contentMode = .scaleAspectFill
     }
 }
 
@@ -30,7 +30,7 @@ extension UIButton {
     
     convenience init(title: String) {
         self.init(type: .system)
-        self.setTitle(title, for: .normal)
+        setTitle(title, for: .normal)
     }
     
 }

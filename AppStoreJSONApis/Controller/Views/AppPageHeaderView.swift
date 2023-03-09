@@ -13,7 +13,7 @@ class AppHeadeView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(headerCollectionView.view)
+        addSubview(headerCollectionView.view)
         headerCollectionView.view.fillSuperview()
     }
     

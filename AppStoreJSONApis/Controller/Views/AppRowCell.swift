@@ -12,11 +12,10 @@ class AppRowCell: UICollectionViewCell {
     let appIconImageView = UIImageView(cornerRadius: 12)
     let appNameLabel = UILabel(text: "App name", font: .systemFont(ofSize: 20))
     let companyNameLabel = UILabel(text: "Company name", font: .systemFont(ofSize: 12))
-    let getButton = UIButton(title: "GET")
+    private let getButton = UIButton(title: "GET")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        appIconImageView.backgroundColor = .red
         appIconImageView.constrainWidth(constant: 64)
         appIconImageView.constrainHeight(constant: 64)
         getButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
@@ -30,7 +29,7 @@ class AppRowCell: UICollectionViewCell {
                                                              getButton])
         overalStackView.spacing = 12
         overalStackView.alignment = .center
-        self.addSubview(overalStackView)
+        addSubview(overalStackView)
         overalStackView.fillSuperview()
         
     }
