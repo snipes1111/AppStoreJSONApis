@@ -39,8 +39,20 @@ class Service {
         }.resume() // fires off the request
     }
     
-    func fetchGames(with completion: @escaping (AppResult?, Error?)->()) {
-        let urlString = "https://rss.applemarketingtools.com/api/v2/us/apps/top-free/50/apps.json"
+    func fetchTopFree(with completion: @escaping (AppResult?, Error?)->()) {
+        fetchGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/apps/top-free/25/apps.json", completion: completion)
+    }
+    
+    func fetchTopPaid(with completion: @escaping (AppResult?, Error?)->()) {
+        fetchGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/apps/top-paid/25/apps.json", completion: completion)
+    }
+    
+    func fetchTopMusic(with completion: @escaping (AppResult?, Error?)->()) {
+        fetchGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/music/most-played/25/albums.json", completion: completion)
+    }
+    
+    // helpers
+    func fetchGroup(urlString: String, completion: @escaping (AppResult?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, res, err in
             if let err = err {
@@ -63,5 +75,27 @@ class Service {
         }.resume()
     }
     
+    func fetchAppHeaderApps(completion: @escaping ([AppHeaderApps]?, Error?) -> Void) {
+        guard let url = URL(string: "http://api.letsbuildthatapp.com/appstore/social") else { return }
+        URLSession.shared.dataTask(with: url) { data, res, err in
+            if let err = err {
+                print("Error to fetch data:", err)
+                completion(nil, err)
+                return
+            }
+            
+            guard let data = data else { return }
+            
+            do {
+                let headerApps = try JSONDecoder().decode([AppHeaderApps].self, from: data)
+                completion(headerApps, nil)
+
+            } catch {
+                print("Failed to decode JSON: ", error)
+                completion(nil, error)
+            }
+            
+        }.resume()
+    }
     
 }

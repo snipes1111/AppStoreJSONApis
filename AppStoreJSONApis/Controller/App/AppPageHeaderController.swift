@@ -11,6 +11,8 @@ class AppPageHeaderController: BaseSectionController {
     
     private let reuseIdentifier = "headerCell"
     
+    var appGroup = [AppHeaderApps]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -20,12 +22,16 @@ class AppPageHeaderController: BaseSectionController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AppsHeaderCell
+        let app = appGroup[indexPath.item]
+        cell.companyLabel.text = app.name
+        cell.titleLabel.text = app.tagline
+        cell.titleImageView.sd_setImage(with: URL(string: app.imageUrl))
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        appGroup.count
     }
     
 }

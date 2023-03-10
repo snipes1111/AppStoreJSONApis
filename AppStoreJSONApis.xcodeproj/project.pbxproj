@@ -33,6 +33,7 @@
 		CE922C5E29B9FEE500D799CA /* AppPageHeaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE922C5D29B9FEE500D799CA /* AppPageHeaderController.swift */; };
 		CE922C6029BA075D00D799CA /* AppsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE922C5F29BA075D00D799CA /* AppsHeaderCell.swift */; };
 		CE922C6229BA48F000D799CA /* AppResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE922C6129BA48F000D799CA /* AppResult.swift */; };
+		CE922C6429BB844400D799CA /* AppHeaderApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE922C6329BB844400D799CA /* AppHeaderApps.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		CE922C5D29B9FEE500D799CA /* AppPageHeaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPageHeaderController.swift; sourceTree = "<group>"; };
 		CE922C5F29BA075D00D799CA /* AppsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderCell.swift; sourceTree = "<group>"; };
 		CE922C6129BA48F000D799CA /* AppResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppResult.swift; sourceTree = "<group>"; };
+		CE922C6329BB844400D799CA /* AppHeaderApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderApps.swift; sourceTree = "<group>"; };
 		F6FC875F0757232EDC75D54B /* Pods-AppStoreJSONApis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONApis.release.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONApis/Pods-AppStoreJSONApis.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +176,7 @@
 			children = (
 				CE7AF37F29B6362C002107FE /* SearchResult.swift */,
 				CE922C6129BA48F000D799CA /* AppResult.swift */,
+				CE922C6329BB844400D799CA /* AppHeaderApps.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				CE26A9B229B7B27600EDEE56 /* Extensions.swift in Sources */,
 				CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */,
 				CE26A9A729B7820C00EDEE56 /* AppPageController.swift in Sources */,
+				CE922C6429BB844400D799CA /* AppHeaderApps.swift in Sources */,
 				CE922C6229BA48F000D799CA /* AppResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
