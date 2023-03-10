@@ -57,7 +57,7 @@ class AppSearchController: BaseSectionController {
                 return
             }
             
-            self.searchResult = result
+            self.searchResult = result?.results ?? []
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -106,7 +106,7 @@ extension AppSearchController: UISearchBarDelegate {
                 if let err = err {
                     print("Failed to fetch apps: ", err)
                 }
-                self.searchResult = res
+                self.searchResult = res?.results ?? []
                 
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
