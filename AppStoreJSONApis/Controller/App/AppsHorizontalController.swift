@@ -7,22 +7,26 @@
 
 import UIKit
 
-class AppsHorizontalController: BaseSectionController {
+class AppsHorizontalController: HorizontalSnappingController {
     
     private let reuseIdentifier = "cellId"
     private let topBottomInsets: CGFloat = 12
     private let lineSpacing: CGFloat = 10
     
     var appResult: AppResult?
+    var didSelectHandler: ((FeedResults?) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
         
-        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        layout.scrollDirection = .horizontal
-        
-        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let app = appResult?.feed.results[indexPath.item] {
+            didSelectHandler?(app)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -49,10 +53,6 @@ extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
         let calculatedHeight: CGFloat = collectionView.frame.height - topBottomInsets * 2 - lineSpacing * 2
         
         return .init(width: collectionView.frame.width - 48, height: calculatedHeight / 3)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        .init(top: topBottomInsets, left: 16, bottom: topBottomInsets, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

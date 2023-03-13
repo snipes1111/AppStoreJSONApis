@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppPageHeaderController: BaseSectionController {
+class AppPageHeaderController: HorizontalSnappingController {
     
     private let reuseIdentifier = "headerCell"
     
@@ -16,8 +16,7 @@ class AppPageHeaderController: BaseSectionController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        guard let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        layout.scrollDirection = .horizontal
+        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
         
     }
     
@@ -39,9 +38,5 @@ class AppPageHeaderController: BaseSectionController {
 extension AppPageHeaderController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: view.frame.width - 48, height: view.frame.height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        .init(top: 0, left: 16, bottom: 0, right: 16)
     }
 }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B570E2ADA3BDF95BF87A1F23 /* Pods_AppStoreJSONApis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE802C7AA0E699C85548F94 /* Pods_AppStoreJSONApis.framework */; };
+		CE178F1929BF617D00E265AF /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE178F1829BF617D00E265AF /* HorizontalSnappingController.swift */; };
+		CE178F1B29BF802500E265AF /* AppDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE178F1A29BF802500E265AF /* AppDetailController.swift */; };
 		CE26A9A729B7820C00EDEE56 /* AppPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9A629B7820C00EDEE56 /* AppPageController.swift */; };
 		CE26A9A929B784CA00EDEE56 /* BaseSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9A829B784CA00EDEE56 /* BaseSectionController.swift */; };
 		CE26A9AB29B7877100EDEE56 /* AppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9AA29B7877100EDEE56 /* AppCell.swift */; };
@@ -39,6 +41,8 @@
 /* Begin PBXFileReference section */
 		1AE802C7AA0E699C85548F94 /* Pods_AppStoreJSONApis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONApis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A70FBCB3E5EF4FA3A73F6884 /* Pods-AppStoreJSONApis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONApis.debug.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONApis/Pods-AppStoreJSONApis.debug.xcconfig"; sourceTree = "<group>"; };
+		CE178F1829BF617D00E265AF /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
+		CE178F1A29BF802500E265AF /* AppDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailController.swift; sourceTree = "<group>"; };
 		CE26A9A629B7820C00EDEE56 /* AppPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppPageController.swift; path = AppStoreJSONApis/Controller/App/AppPageController.swift; sourceTree = SOURCE_ROOT; };
 		CE26A9A829B784CA00EDEE56 /* BaseSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSectionController.swift; sourceTree = "<group>"; };
 		CE26A9AA29B7877100EDEE56 /* AppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCell.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 				CE7AF38629B78073002107FE /* App */,
 				CE26A9A829B784CA00EDEE56 /* BaseSectionController.swift */,
 				CE7AF37029B21A56002107FE /* MainTabBarController.swift */,
+				CE178F1829BF617D00E265AF /* HorizontalSnappingController.swift */,
 				CE26A9AC29B7877F00EDEE56 /* Views */,
 			);
 			path = Controller;
@@ -201,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				CE26A9A629B7820C00EDEE56 /* AppPageController.swift */,
+				CE178F1A29BF802500E265AF /* AppDetailController.swift */,
 				CE26A9AD29B798B700EDEE56 /* AppsHorizontalController.swift */,
 				CE922C5D29B9FEE500D799CA /* AppPageHeaderController.swift */,
 			);
@@ -335,6 +341,7 @@
 				CE7AF38329B64044002107FE /* ServiceAPI.swift in Sources */,
 				CE7AF35B29B21400002107FE /* AppDelegate.swift in Sources */,
 				CE922C5E29B9FEE500D799CA /* AppPageHeaderController.swift in Sources */,
+				CE178F1B29BF802500E265AF /* AppDetailController.swift in Sources */,
 				CE922C6029BA075D00D799CA /* AppsHeaderCell.swift in Sources */,
 				CE26A9A929B784CA00EDEE56 /* BaseSectionController.swift in Sources */,
 				CE922C5C29B9FC8E00D799CA /* AppPageHeaderView.swift in Sources */,
@@ -343,6 +350,7 @@
 				CE26A9B229B7B27600EDEE56 /* Extensions.swift in Sources */,
 				CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */,
 				CE26A9A729B7820C00EDEE56 /* AppPageController.swift in Sources */,
+				CE178F1929BF617D00E265AF /* HorizontalSnappingController.swift in Sources */,
 				CE922C6429BB844400D799CA /* AppHeaderApps.swift in Sources */,
 				CE922C6229BA48F000D799CA /* AppResult.swift in Sources */,
 			);
