@@ -13,11 +13,12 @@ class AppRowCell: UICollectionViewCell {
     let appNameLabel = UILabel(text: "App name", font: .systemFont(ofSize: 20))
     let companyNameLabel = UILabel(text: "Company name", font: .systemFont(ofSize: 12))
     private let getButton = UIButton(title: "GET")
+    lazy var imageHeight = self.frame.height - 8
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        appIconImageView.constrainWidth(constant: 64)
-        appIconImageView.constrainHeight(constant: 64)
+        appIconImageView.constrainWidth(constant: imageHeight)
+        appIconImageView.constrainHeight(constant: imageHeight)
         getButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
         getButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
         getButton.constrainWidth(constant: 80)

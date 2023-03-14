@@ -36,7 +36,6 @@ class AppPageController: BaseSectionController {
         
         var group1: AppResult?
         var group2: AppResult?
-        var group3: AppResult?
         
         let dispatchGroup = DispatchGroup()
         
@@ -70,21 +69,10 @@ class AppPageController: BaseSectionController {
             group2 = appResult
         })
         
-        dispatchGroup.enter()
-        Service.shared.fetchTopMusic(with: { appRes, err in
-            if let err = err {
-                print("Failed to fetch header apps: ", err)
-            }
-            dispatchGroup.leave()
-            print("Done with top music")
-            guard let appResult = appRes else { return }
-            group3 = appResult
-        })
-        
         dispatchGroup.notify(queue: .main) {
             self.activityIndicator.stopAnimating()
             print("Complited your dispatch tasks...")
-            let groups = [group1, group2, group3]
+            let groups = [group1, group2]
             groups.forEach { group in
                 if let group = group {
                     self.appGroupResults.append(group)
@@ -109,6 +97,7 @@ class AppPageController: BaseSectionController {
         cell.horizontalViewController.didSelectHandler = { [weak self] feedResult in
             let controller = AppDetailController()
             controller.navigationItem.title = feedResult?.name
+            controller.appId = feedResult?.id
             self?.navigationController?.pushViewController(controller, animated: true)
         }
         cell.horizontalViewController.collectionView.reloadData()

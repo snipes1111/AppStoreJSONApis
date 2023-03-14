@@ -10,6 +10,7 @@
 		B570E2ADA3BDF95BF87A1F23 /* Pods_AppStoreJSONApis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE802C7AA0E699C85548F94 /* Pods_AppStoreJSONApis.framework */; };
 		CE178F1929BF617D00E265AF /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE178F1829BF617D00E265AF /* HorizontalSnappingController.swift */; };
 		CE178F1B29BF802500E265AF /* AppDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE178F1A29BF802500E265AF /* AppDetailController.swift */; };
+		CE178F1E29BF96E800E265AF /* DetailAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE178F1D29BF96E800E265AF /* DetailAppCell.swift */; };
 		CE26A9A729B7820C00EDEE56 /* AppPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9A629B7820C00EDEE56 /* AppPageController.swift */; };
 		CE26A9A929B784CA00EDEE56 /* BaseSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9A829B784CA00EDEE56 /* BaseSectionController.swift */; };
 		CE26A9AB29B7877100EDEE56 /* AppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9AA29B7877100EDEE56 /* AppCell.swift */; };
@@ -36,6 +37,8 @@
 		CE922C6029BA075D00D799CA /* AppsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE922C5F29BA075D00D799CA /* AppsHeaderCell.swift */; };
 		CE922C6229BA48F000D799CA /* AppResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE922C6129BA48F000D799CA /* AppResult.swift */; };
 		CE922C6429BB844400D799CA /* AppHeaderApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE922C6329BB844400D799CA /* AppHeaderApps.swift */; };
+		CED5C0A129C0F5F8005265F9 /* ScreenshotsAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED5C0A029C0F5F8005265F9 /* ScreenshotsAppCell.swift */; };
+		CED5C0A329C0FACF005265F9 /* ScreenshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED5C0A229C0FACF005265F9 /* ScreenshotController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,7 @@
 		A70FBCB3E5EF4FA3A73F6884 /* Pods-AppStoreJSONApis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONApis.debug.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONApis/Pods-AppStoreJSONApis.debug.xcconfig"; sourceTree = "<group>"; };
 		CE178F1829BF617D00E265AF /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
 		CE178F1A29BF802500E265AF /* AppDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailController.swift; sourceTree = "<group>"; };
+		CE178F1D29BF96E800E265AF /* DetailAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAppCell.swift; sourceTree = "<group>"; };
 		CE26A9A629B7820C00EDEE56 /* AppPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppPageController.swift; path = AppStoreJSONApis/Controller/App/AppPageController.swift; sourceTree = SOURCE_ROOT; };
 		CE26A9A829B784CA00EDEE56 /* BaseSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSectionController.swift; sourceTree = "<group>"; };
 		CE26A9AA29B7877100EDEE56 /* AppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCell.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 		CE922C5F29BA075D00D799CA /* AppsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderCell.swift; sourceTree = "<group>"; };
 		CE922C6129BA48F000D799CA /* AppResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppResult.swift; sourceTree = "<group>"; };
 		CE922C6329BB844400D799CA /* AppHeaderApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderApps.swift; sourceTree = "<group>"; };
+		CED5C0A029C0F5F8005265F9 /* ScreenshotsAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsAppCell.swift; sourceTree = "<group>"; };
+		CED5C0A229C0FACF005265F9 /* ScreenshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotController.swift; sourceTree = "<group>"; };
 		F6FC875F0757232EDC75D54B /* Pods-AppStoreJSONApis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONApis.release.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONApis/Pods-AppStoreJSONApis.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,14 +109,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CE178F1C29BF89B900E265AF /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				CE178F1A29BF802500E265AF /* AppDetailController.swift */,
+				CED5C0A229C0FACF005265F9 /* ScreenshotController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		CE178F1F29BF96EF00E265AF /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				CE178F1D29BF96E800E265AF /* DetailAppCell.swift */,
+				CED5C0A029C0F5F8005265F9 /* ScreenshotsAppCell.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		CE26A9AC29B7877F00EDEE56 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CE26A9AA29B7877100EDEE56 /* AppCell.swift */,
-				CE26A9AF29B7B1DE00EDEE56 /* AppRowCell.swift */,
-				CE922C5B29B9FC8E00D799CA /* AppPageHeaderView.swift */,
-				CE922C5F29BA075D00D799CA /* AppsHeaderCell.swift */,
-				CE7AF37729B2634D002107FE /* SearchResultCell.swift */,
+				CED5C09D29C0F188005265F9 /* Search */,
+				CED5C09E29C0F1B5005265F9 /* App */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,12 +226,40 @@
 		CE7AF38629B78073002107FE /* App */ = {
 			isa = PBXGroup;
 			children = (
+				CE178F1C29BF89B900E265AF /* Details */,
 				CE26A9A629B7820C00EDEE56 /* AppPageController.swift */,
-				CE178F1A29BF802500E265AF /* AppDetailController.swift */,
 				CE26A9AD29B798B700EDEE56 /* AppsHorizontalController.swift */,
 				CE922C5D29B9FEE500D799CA /* AppPageHeaderController.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		CED5C09D29C0F188005265F9 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				CE7AF37729B2634D002107FE /* SearchResultCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		CED5C09E29C0F1B5005265F9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CED5C09F29C0F1D4005265F9 /* Header */,
+				CE178F1F29BF96EF00E265AF /* Detail */,
+				CE26A9AA29B7877100EDEE56 /* AppCell.swift */,
+				CE26A9AF29B7B1DE00EDEE56 /* AppRowCell.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CED5C09F29C0F1D4005265F9 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				CE922C5B29B9FC8E00D799CA /* AppPageHeaderView.swift */,
+				CE922C5F29BA075D00D799CA /* AppsHeaderCell.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +389,7 @@
 				CE7AF37529B24D03002107FE /* AppSearchController.swift in Sources */,
 				CE7AF38329B64044002107FE /* ServiceAPI.swift in Sources */,
 				CE7AF35B29B21400002107FE /* AppDelegate.swift in Sources */,
+				CE178F1E29BF96E800E265AF /* DetailAppCell.swift in Sources */,
 				CE922C5E29B9FEE500D799CA /* AppPageHeaderController.swift in Sources */,
 				CE178F1B29BF802500E265AF /* AppDetailController.swift in Sources */,
 				CE922C6029BA075D00D799CA /* AppsHeaderCell.swift in Sources */,
@@ -347,11 +397,13 @@
 				CE922C5C29B9FC8E00D799CA /* AppPageHeaderView.swift in Sources */,
 				CE7AF37129B21A56002107FE /* MainTabBarController.swift in Sources */,
 				CE7AF37329B2440B002107FE /* Icons.swift in Sources */,
+				CED5C0A129C0F5F8005265F9 /* ScreenshotsAppCell.swift in Sources */,
 				CE26A9B229B7B27600EDEE56 /* Extensions.swift in Sources */,
 				CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */,
 				CE26A9A729B7820C00EDEE56 /* AppPageController.swift in Sources */,
 				CE178F1929BF617D00E265AF /* HorizontalSnappingController.swift in Sources */,
 				CE922C6429BB844400D799CA /* AppHeaderApps.swift in Sources */,
+				CED5C0A329C0FACF005265F9 /* ScreenshotController.swift in Sources */,
 				CE922C6229BA48F000D799CA /* AppResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

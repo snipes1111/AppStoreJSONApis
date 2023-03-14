@@ -8,16 +8,17 @@
 import Foundation
 
 struct AppResult: Decodable {
-    var feed: Feed
+    let feed: Feed
 }
 
 struct Feed: Decodable {
-    var title: String
-    var results: [FeedResults]
+    let title: String
+    let results: [FeedResults]
 }
 
 struct FeedResults: Decodable {
-    var name: String
-    var artistName: String
-    var artworkUrl100: String // app icon 100*100
+    let name: String
+    let artistName: String
+    let artworkUrl100: String // app icon 100*100
+    let id: String
 }

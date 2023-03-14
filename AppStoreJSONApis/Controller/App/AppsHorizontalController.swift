@@ -10,8 +10,7 @@ import UIKit
 class AppsHorizontalController: HorizontalSnappingController {
     
     private let reuseIdentifier = "cellId"
-    private let topBottomInsets: CGFloat = 12
-    private let lineSpacing: CGFloat = 10
+    private let lineSpacing: CGFloat = 12
     
     var appResult: AppResult?
     var didSelectHandler: ((FeedResults?) -> ())?
@@ -50,7 +49,7 @@ class AppsHorizontalController: HorizontalSnappingController {
 extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let calculatedHeight: CGFloat = collectionView.frame.height - topBottomInsets * 2 - lineSpacing * 2
+        let calculatedHeight: CGFloat = collectionView.frame.height - lineSpacing * 2
         
         return .init(width: collectionView.frame.width - 48, height: calculatedHeight / 3)
     }

@@ -22,10 +22,6 @@ class Service {
         fetchGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/apps/top-paid/25/apps.json", completion: completion)
     }
     
-    func fetchTopMusic(with completion: @escaping (AppResult?, Error?)->()) {
-        fetchGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/music/most-played/25/albums.json", completion: completion)
-    }
-    
     // helpers
     func fetchGroup(urlString: String, completion: @escaping (AppResult?, Error?) -> Void) {
         fetchGenericJSONData(urlString: urlString, completion: completion)
