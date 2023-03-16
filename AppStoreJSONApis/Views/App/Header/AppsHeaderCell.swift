@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppsHeaderCell: UICollectionViewCell {
+class AppsHeaderCell: UnderlineCell {
     
     let companyLabel = UILabel(text: "Facebbook", font: .boldSystemFont(ofSize: 12))
     let titleLabel = UILabel(text: "Keeping up with friends is faster then ever", font: .systemFont(ofSize: 24))
@@ -21,6 +21,8 @@ class AppsHeaderCell: UICollectionViewCell {
         let stackView = VerticalStackView(arrangedSubviews: [companyLabel, titleLabel, titleImageView], spacing: 12)
         addSubview(stackView)
         stackView.fillSuperview(padding: .init(top: 16, left: 0, bottom: 16, right: 0))
+        
+        underlineView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
         
     }
     

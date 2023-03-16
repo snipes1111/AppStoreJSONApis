@@ -7,13 +7,13 @@
 
 import UIKit
 
-class SearchResultCell: UICollectionViewCell {
+class SearchResultCell: UnderlineCell {
     
     var result: Result! {
         didSet {
             categoryLabel.text = result.primaryGenreName
             nameLabel.text = result.trackName
-            ratingLabel.text = String(result.userRatingCount ?? 0)
+            ratingLabel.text = result.userRatingCount?.makeShortDescrString() ?? "0"
             
             // import images
             let url = URL(string: result.artworkUrl100)
@@ -52,6 +52,8 @@ class SearchResultCell: UICollectionViewCell {
     let ratingLabel: UILabel = {
         let label = UILabel()
         label.text = "9.27M"
+        label.font = .boldSystemFont(ofSize: 14)
+        label.textColor = #colorLiteral(red: 0.6002627611, green: 0.5721129775, blue: 0.5374191403, alpha: 1)
         return label
     }()
     
@@ -99,6 +101,8 @@ class SearchResultCell: UICollectionViewCell {
         contentView.addSubview(overallStackView)
         // setup constraints by UIView Helper Extension
         overallStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
+        
+        underlineView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
     }
     
     required init?(coder: NSCoder) {

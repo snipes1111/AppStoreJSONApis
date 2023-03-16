@@ -42,3 +42,16 @@ extension UIStackView {
         spacing = customSpacing
     }
 }
+
+extension Int {
+    func makeShortDescrString() -> String {
+        switch self {
+        case let num where num < 1000:
+            return "\(self)"
+        case let num where num > 1000 && num < 1000000:
+            return "\(self / 1000)K"
+        default:
+            return "\(self / 1000000)M"
+        }
+    }
+}

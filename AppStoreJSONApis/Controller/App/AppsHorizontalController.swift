@@ -26,6 +26,9 @@ class AppsHorizontalController: HorizontalSnappingController {
         if let app = appResult?.feed.results[indexPath.item] {
             didSelectHandler?(app)
         }
+        if let item = collectionView.cellForItem(at: indexPath) {
+            print(item.frame.maxY, collectionView.frame.maxY)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -34,6 +37,11 @@ class AppsHorizontalController: HorizontalSnappingController {
         cell.companyNameLabel.text = app.artistName
         cell.appNameLabel.text = app.name
         cell.appIconImageView.sd_setImage(with: URL(string: app.artworkUrl100))
+        
+        if  cell.frame.maxY - collectionView.frame.maxY >= 0  {
+            cell.underlineView.isHidden = true
+        }
+        
         return cell
     }
     

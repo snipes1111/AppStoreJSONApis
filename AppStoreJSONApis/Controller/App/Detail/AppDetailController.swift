@@ -31,14 +31,10 @@ class AppDetailController: BaseSectionController {
             
             let urlStringReview = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId ?? "")/sortby=mostrecent/json?l=en&cc=us"
             Service.shared.fetchGenericJSONData(urlString: urlStringReview) { (searchResult: ReviewsResult?, err) in
-                print(urlStringReview)
                 if let err = err { print(("Error to fetch app details: "), err) }
                 
                 guard let searchResult = searchResult else { return }
                 self.review = searchResult
-                self.review?.feed.entry.forEach({ rev in
-                    print(rev.rating.label)
-                })
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
