@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScreenshotCell: UICollectionViewCell {
+class ScreenshotCell: UnderlineCell {
     
     let scrHorizontalCollection = ScreenshotController()
     private let previewLabel = UILabel(text: "Preview", font: .boldSystemFont(ofSize: 23))

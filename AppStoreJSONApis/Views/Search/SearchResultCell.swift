@@ -101,8 +101,6 @@ class SearchResultCell: UnderlineCell {
         contentView.addSubview(overallStackView)
         // setup constraints by UIView Helper Extension
         overallStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
-        
-        underlineView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
     }
     
     required init?(coder: NSCoder) {

@@ -9,38 +9,25 @@ import UIKit
 
 class AppDetailController: BaseSectionController {
     
+    private let appId: String
+    
+    // dependency
+    
+    init(appId: String) {
+        self.appId = appId
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var detailAppCellId = "detailAppCell"
     var screenshotCellId = "scrAppCell"
     var reviewCellId = "reviewCell"
     var app: Result?
     var review: ReviewsResult?
     
-    var appId: String? {
-        didSet {
-            let urlStringApp = "https://itunes.apple.com/lookup?id=\(appId ?? "")"
-            Service.shared.fetchGenericJSONData(urlString: urlStringApp) { (searchResult: SearchResult?, err) in
-                
-                if let err = err { print(("Error to fetch app details: "), err) }
-                
-                guard let searchResult = searchResult else { return }
-                self.app = searchResult.results.first
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-            
-            let urlStringReview = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId ?? "")/sortby=mostrecent/json?l=en&cc=us"
-            Service.shared.fetchGenericJSONData(urlString: urlStringReview) { (searchResult: ReviewsResult?, err) in
-                if let err = err { print(("Error to fetch app details: "), err) }
-                
-                guard let searchResult = searchResult else { return }
-                self.review = searchResult
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +35,32 @@ class AppDetailController: BaseSectionController {
         collectionView.register(DetailAppCell.self, forCellWithReuseIdentifier: detailAppCellId)
         collectionView.register(ScreenshotCell.self, forCellWithReuseIdentifier: screenshotCellId)
         collectionView.register(ReviewRowCell.self, forCellWithReuseIdentifier: reviewCellId)
+        fetchData()
+    }
+    
+    private func fetchData() {
+        let urlStringApp = "https://itunes.apple.com/lookup?id=\(appId)"
+        Service.shared.fetchGenericJSONData(urlString: urlStringApp) { (searchResult: SearchResult?, err) in
+            
+            if let err = err { print(("Error to fetch app details: "), err) }
+            
+            guard let searchResult = searchResult else { return }
+            self.app = searchResult.results.first
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        
+        let urlStringReview = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId)/sortby=mostrecent/json?l=en&cc=us"
+        Service.shared.fetchGenericJSONData(urlString: urlStringReview) { (searchResult: ReviewsResult?, err) in
+            if let err = err { print(("Error to fetch app details: "), err) }
+            
+            guard let searchResult = searchResult else { return }
+            self.review = searchResult
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

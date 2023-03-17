@@ -13,7 +13,7 @@ class AppsHorizontalController: HorizontalSnappingController {
     private let lineSpacing: CGFloat = 12
     
     var appResult: AppResult?
-    var didSelectHandler: ((FeedResults?) -> ())?
+    var didSelectHandler: ((FeedResults) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +25,6 @@ class AppsHorizontalController: HorizontalSnappingController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let app = appResult?.feed.results[indexPath.item] {
             didSelectHandler?(app)
-        }
-        if let item = collectionView.cellForItem(at: indexPath) {
-            print(item.frame.maxY, collectionView.frame.maxY)
         }
     }
     

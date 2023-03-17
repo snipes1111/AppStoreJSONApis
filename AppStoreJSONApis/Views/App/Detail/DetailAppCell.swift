@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailAppCell: UICollectionViewCell {
+class DetailAppCell: UnderlineCell {
     
     var app: Result? {
         didSet {
@@ -32,8 +32,7 @@ class DetailAppCell: UICollectionViewCell {
         priceButton.layer.cornerRadius = 16
         priceButton.setTitleColor(.white, for: .normal)
         priceButton.constrainWidth(constant: 80)
-        
-        appIconImageView.backgroundColor = .red
+    
         appIconImageView.constrainHeight(constant: 140)
         appIconImageView.constrainWidth(constant: 140)
         

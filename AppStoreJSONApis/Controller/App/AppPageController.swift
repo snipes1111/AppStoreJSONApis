@@ -95,9 +95,8 @@ class AppPageController: BaseSectionController {
         cell.appSectionLabel.text = appResult.feed.title
         cell.horizontalViewController.appResult = appResult
         cell.horizontalViewController.didSelectHandler = { [weak self] feedResult in
-            let controller = AppDetailController()
-            controller.navigationItem.title = feedResult?.name
-            controller.appId = feedResult?.id
+            let controller = AppDetailController(appId: feedResult.id)
+            controller.navigationItem.title = feedResult.name
             self?.navigationController?.pushViewController(controller, animated: true)
         }
         cell.horizontalViewController.collectionView.reloadData()

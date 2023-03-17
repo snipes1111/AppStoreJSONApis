@@ -88,6 +88,11 @@ class AppSearchController: BaseSectionController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let id = String(searchResult[indexPath.item].trackId)
+        navigationController?.pushViewController(AppDetailController(appId: id), animated: true)
+    }
+    
 }
 
 extension AppSearchController: UICollectionViewDelegateFlowLayout {
