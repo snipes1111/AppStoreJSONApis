@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B570E2ADA3BDF95BF87A1F23 /* Pods_AppStoreJSONApis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE802C7AA0E699C85548F94 /* Pods_AppStoreJSONApis.framework */; };
+		CE12AFA429C8ECE300AE49A2 /* AppFullScreenHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12AFA329C8ECE300AE49A2 /* AppFullScreenHeaderCell.swift */; };
 		CE17028229C368D90078B8FE /* UnderlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17028129C368D80078B8FE /* UnderlineCell.swift */; };
 		CE17028529C4C00C0078B8FE /* TodayAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17028429C4C00C0078B8FE /* TodayAppController.swift */; };
 		CE17028829C4C1E00078B8FE /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17028729C4C1E00078B8FE /* TodayCell.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		1AE802C7AA0E699C85548F94 /* Pods_AppStoreJSONApis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONApis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A70FBCB3E5EF4FA3A73F6884 /* Pods-AppStoreJSONApis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONApis.debug.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONApis/Pods-AppStoreJSONApis.debug.xcconfig"; sourceTree = "<group>"; };
+		CE12AFA329C8ECE300AE49A2 /* AppFullScreenHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullScreenHeaderCell.swift; sourceTree = "<group>"; };
 		CE17028129C368D80078B8FE /* UnderlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineCell.swift; sourceTree = "<group>"; };
 		CE17028429C4C00C0078B8FE /* TodayAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAppController.swift; sourceTree = "<group>"; };
 		CE17028729C4C1E00078B8FE /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				CE17028729C4C1E00078B8FE /* TodayCell.swift */,
 				CE817A3A29C8C49D00DF383D /* AppDescriptionCell.swift */,
+				CE12AFA329C8ECE300AE49A2 /* AppFullScreenHeaderCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				CE7AF37B29B38298002107FE /* UIView+Layout.swift in Sources */,
 				CE8E80E729C2216500274FC1 /* ReviewCell.swift in Sources */,
 				CE26A9AB29B7877100EDEE56 /* AppCell.swift in Sources */,
+				CE12AFA429C8ECE300AE49A2 /* AppFullScreenHeaderCell.swift in Sources */,
 				CE17028229C368D90078B8FE /* UnderlineCell.swift in Sources */,
 				CE7AF37D29B38C40002107FE /* VerticalStackView.swift in Sources */,
 				CE17028529C4C00C0078B8FE /* TodayAppController.swift in Sources */,
@@ -628,6 +632,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -661,6 +666,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

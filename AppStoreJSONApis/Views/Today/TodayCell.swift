@@ -13,14 +13,13 @@ class TodayCell: UICollectionViewCell {
        let imageView = UIImageView()
         imageView.image = UIImage(named: "garden")
         imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = .lightGray
         return imageView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.layer.cornerRadius = 12
         contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 12
         contentView.addSubview(imageView)
         imageView.centerInSuperview(size: .init(width: 250, height: 250))
     }
