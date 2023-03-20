@@ -22,7 +22,7 @@ class DetailAppCell: UnderlineCell {
     let appNameLabel = UILabel(text: "My apps name", font: .boldSystemFont(ofSize: 23), numberOfLines: 2)
     let priceButton = UIButton(title: "4.99$")
     let whatsNewLabel = UILabel(text: "What's New", font: .boldSystemFont(ofSize: 23))
-    let whatsNewTextLabel = UILabel(text: "Release notes", font: .systemFont(ofSize: 20), numberOfLines: 0)
+    let whatsNewTextLabel = UILabel(text: "Release notes", font: .systemFont(ofSize: 16), numberOfLines: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
