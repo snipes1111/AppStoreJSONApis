@@ -102,8 +102,6 @@ class AppPageController: BaseSectionController {
         cell.horizontalViewController.collectionView.reloadData()
         return cell
     }
-    
-    
 }
 
 

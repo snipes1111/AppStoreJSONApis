@@ -10,7 +10,7 @@ import UIKit
 class AppRowCell: UnderlineCellWithNoConstraint {
     
     let appIconImageView = UIImageView(cornerRadius: 12)
-    let appNameLabel = UILabel(text: "App name", font: .systemFont(ofSize: 20))
+    let appNameLabel = UILabel(text: "App name", font: .systemFont(ofSize: 18))
     let companyNameLabel = UILabel(text: "Company name", font: .systemFont(ofSize: 12))
     private let getButton = UIButton(title: "GET")
     lazy var imageHeight = self.frame.height - 8
@@ -31,7 +31,7 @@ class AppRowCell: UnderlineCellWithNoConstraint {
         overalStackView.spacing = 12
         overalStackView.alignment = .center
         addSubview(overalStackView)
-        overalStackView.fillSuperview()
+        overalStackView.fillSuperview(padding: .init(top: 0, left: 0, bottom: 8, right: 0))
         underlineView.anchor(top: nil, leading: companyNameLabel.leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
         
     }

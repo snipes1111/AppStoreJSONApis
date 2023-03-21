@@ -19,7 +19,6 @@ class AppsHorizontalController: HorizontalSnappingController {
         super.viewDidLoad()
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
-        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -29,16 +28,12 @@ class AppsHorizontalController: HorizontalSnappingController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AppRowCell
         guard let app = appResult?.feed.results[indexPath.item] else { return UICollectionViewCell() }
         cell.companyNameLabel.text = app.artistName
         cell.appNameLabel.text = app.name
         cell.appIconImageView.sd_setImage(with: URL(string: app.artworkUrl100))
-        
-        if  cell.frame.maxY - collectionView.frame.maxY >= 0  {
-            cell.underlineView.isHidden = true
-        }
-        
         return cell
     }
     
@@ -61,5 +56,11 @@ extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         lineSpacing
+    }
+}
+
+extension AppsHorizontalController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

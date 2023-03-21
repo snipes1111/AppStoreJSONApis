@@ -38,4 +38,12 @@ class UnderlineCellWithNoConstraint: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+            super.layoutSubviews()
+
+            // Update underline view position
+        let isLastCellInColumn = (frame.maxY >= superview!.bounds.maxY)
+            underlineView.isHidden = isLastCellInColumn
+        }
+    
 }

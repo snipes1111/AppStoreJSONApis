@@ -52,7 +52,7 @@ class AppDescriptionCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(descriptionLabel)
-        descriptionLabel.fillSuperview(padding: .init(top: 0, left: 20, bottom: 0, right: 20))
+        descriptionLabel.fillSuperview(padding: .init(top: 8, left: 20, bottom: 0, right: 20))
     }
     
     required init?(coder: NSCoder) {

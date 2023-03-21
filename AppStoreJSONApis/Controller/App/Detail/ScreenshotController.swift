@@ -36,7 +36,7 @@ class ScreenshotController: HorizontalSnappingController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(scrCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = .init(top: 0, left: 20, bottom: 0, right: 20)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
