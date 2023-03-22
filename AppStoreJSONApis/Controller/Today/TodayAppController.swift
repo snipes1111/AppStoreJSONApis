@@ -9,12 +9,17 @@ import UIKit
 
 class TodayAppController: BaseSectionController {
     
-    private let todayItems = [
-        TodayItem(category: "LIFE HACK", title: "Utilizing your Time", descriptionText: "All the tools and apps you need to intelligently orginize your life the right way!", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType: .single),
-        TodayItem(category: "SECOND CELL", title: "Test-Drive These CarPlay Apps", descriptionText: "", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType:  .multiple),
-        TodayItem(category: "HOLIDAYS", title: "Travel on a budget", descriptionText: "Find out all you need to know on how to travel without packing everything!", image: #imageLiteral(resourceName: "holiday"), backGroundColor: #colorLiteral(red: 0.9808613658, green: 0.9632887244, blue: 0.7228078246, alpha: 1), cellType: .single),
-        TodayItem(category: "MULTIPLE CELL", title: "Test-Drive These CarPlay Apps", descriptionText: "", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType:  .multiple)
-    ]
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.color = .darkGray
+        activity.startAnimating()
+        activity.hidesWhenStopped = true
+        return activity
+    }()
+    
+    private var todayItems = [TodayItem]()
+    private var topFreeApps: AppResult?
+    private var topPaidApps: AppResult?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +27,42 @@ class TodayAppController: BaseSectionController {
         navigationController?.isNavigationBarHidden = true
         collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
         collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
+        view.addSubview(activityIndicator)
+        activityIndicator.fillSuperview()
+        fetchData()
+    }
+    
+    private func fetchData() {
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        Service.shared.fetchTopFree { appresult, err in
+            dispatchGroup.leave()
+            if let err = err {
+                print("Error to fetch today top free apps: ", err)
+            }
+            self.topFreeApps = appresult
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchTopPaid { appresult, err in
+            dispatchGroup.leave()
+            if let err = err {
+                print("Error to fetch today top free apps: ", err)
+            }
+            self.topPaidApps = appresult
+        }
+        
+        dispatchGroup.notify(queue: .main) { [unowned self] in
+            todayItems = [
+                TodayItem(category: "LIFE HACK", title: "Utilizing your Time", descriptionText: "All the tools and apps you need to intelligently orginize your life the right way!", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType: .single, feedResult: []),
+                TodayItem.init(category: "DAILY LIST", title: topPaidApps?.feed.title ?? "", descriptionText: "", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType:  .multiple, feedResult: topPaidApps?.feed.results ?? []),
+                TodayItem(category: "HOLIDAYS", title: "Travel on a budget", descriptionText: "Find out all you need to know on how to travel without packing everything!", image: #imageLiteral(resourceName: "holiday"), backGroundColor: #colorLiteral(red: 0.9808613658, green: 0.9632887244, blue: 0.7228078246, alpha: 1), cellType: .single, feedResult: []),
+                TodayItem(category: "DAILY LIST", title: topFreeApps?.feed.title ?? "", descriptionText: "", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType:  .multiple, feedResult: topFreeApps?.feed.results ?? [])
+            ]
+            self.collectionView.reloadData()
+            self.activityIndicator.stopAnimating()
+            
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -70,9 +111,9 @@ class TodayAppController: BaseSectionController {
         heightConstraint = appFullScreenView.heightAnchor.constraint(equalToConstant: startingFrame.height)
         [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach { $0?.isActive = true }
         view.layoutIfNeeded() // starts animation
-
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
         
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+            
             self.topConstraint?.constant = 0
             self.leadingConstraint?.constant = 0
             self.widthConstraint?.constant = self.view.frame.width
@@ -85,11 +126,11 @@ class TodayAppController: BaseSectionController {
     }
     
     private func handleRemoveRedView() {
-
+        
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             
             guard let startingFrame = self.startingFrame else { return }
-    
+            
             self.topConstraint?.constant = startingFrame.origin.y
             self.leadingConstraint?.constant = startingFrame.origin.x
             self.widthConstraint?.constant = startingFrame.width
@@ -144,4 +185,4 @@ extension TodayAppController {
     
     
 }
-    
+

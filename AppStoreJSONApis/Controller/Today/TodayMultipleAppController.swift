@@ -10,25 +10,12 @@ import UIKit
 class TodayMultipleAppController: BaseSectionController {
     
     private var linespacing: CGFloat = 8
-    private var appResults = [FeedResults]()
+    var appResults = [FeedResults]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: AppsHorizontalController.reuseIdentifier)
-        fetchApps()
-    }
-    
-    private func fetchApps() {
-        Service.shared.fetchTopFree { appResults, err in
-            if let err = err {
-                print("Error to fetch today apps: ", err)
-            }
-            self.appResults = appResults?.feed.results ?? []
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
