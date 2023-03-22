@@ -7,9 +7,26 @@
 
 import UIKit
 
+enum Mode {
+    case fullScreen, compact
+}
+
 class TodayMultipleAppController: BaseSectionController {
     
+    private var mode: Mode
+    
+    init(mode: Mode) {
+        self.mode = mode
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
     private var linespacing: CGFloat = 8
+    private var sideInset: CGFloat = 20
+    
     var appResults = [FeedResults]()
     
     override func viewDidLoad() {
@@ -19,7 +36,7 @@ class TodayMultipleAppController: BaseSectionController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        min(4, appResults.count)
+        return mode == .compact ? min(4, appResults.count) : appResults.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -34,11 +51,15 @@ extension TodayMultipleAppController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = view.frame.height - 3 * linespacing
-        return .init(width: view.frame.width, height: height / 4)
+        return mode == .compact ? .init(width: view.frame.width, height: height / 4) : .init(width: view.frame.width - sideInset * 2, height: 74)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         linespacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return  mode == .fullScreen ? .init(top: 12, left: sideInset, bottom: 12, right: sideInset) : .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
 }

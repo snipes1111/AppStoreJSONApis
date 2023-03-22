@@ -22,7 +22,7 @@ class TodayMultipleAppCell: BaseTodayCell {
     private var categoryLabel = UILabel(text: "", font: .boldSystemFont(ofSize: 22))
     private var titleLabel = UILabel(text: "", font: .boldSystemFont(ofSize: 28))
     
-    let appCollectionViewController = TodayMultipleAppController()
+    let appCollectionViewController = TodayMultipleAppController(mode: .compact)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
