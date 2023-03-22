@@ -23,6 +23,9 @@
 		CE26A9B229B7B27600EDEE56 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9B129B7B27600EDEE56 /* Extensions.swift */; };
 		CE2F0CCD29C2325000CA32F4 /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F0CCC29C2325000CA32F4 /* Reviews.swift */; };
 		CE6A51EB29C9FC4900F9969D /* TodayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A51EA29C9FC4800F9969D /* TodayItem.swift */; };
+		CE6A51ED29CA238B00F9969D /* TodayMultipleAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A51EC29CA238B00F9969D /* TodayMultipleAppCell.swift */; };
+		CE6A51EF29CA321200F9969D /* BaseTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A51EE29CA321200F9969D /* BaseTodayCell.swift */; };
+		CE6A51F129CB36D800F9969D /* TodayMultipleAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A51F029CB36D800F9969D /* TodayMultipleAppController.swift */; };
 		CE7AF35B29B21400002107FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF35A29B21400002107FE /* AppDelegate.swift */; };
 		CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF35C29B21400002107FE /* SceneDelegate.swift */; };
 		CE7AF35F29B21400002107FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7AF35E29B21400002107FE /* ViewController.swift */; };
@@ -70,6 +73,9 @@
 		CE26A9B129B7B27600EDEE56 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CE2F0CCC29C2325000CA32F4 /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		CE6A51EA29C9FC4800F9969D /* TodayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayItem.swift; sourceTree = "<group>"; };
+		CE6A51EC29CA238B00F9969D /* TodayMultipleAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleAppCell.swift; sourceTree = "<group>"; };
+		CE6A51EE29CA321200F9969D /* BaseTodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTodayCell.swift; sourceTree = "<group>"; };
+		CE6A51F029CB36D800F9969D /* TodayMultipleAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleAppController.swift; sourceTree = "<group>"; };
 		CE7AF35729B21400002107FE /* AppStoreJSONApis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppStoreJSONApis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7AF35A29B21400002107FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE7AF35C29B21400002107FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +142,7 @@
 			children = (
 				CE17028429C4C00C0078B8FE /* TodayAppController.swift */,
 				CE817A3829C8A26B00DF383D /* AppFullScreenController.swift */,
+				CE6A51F029CB36D800F9969D /* TodayMultipleAppController.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -146,6 +153,8 @@
 				CE17028729C4C1E00078B8FE /* TodayCell.swift */,
 				CE817A3A29C8C49D00DF383D /* AppDescriptionCell.swift */,
 				CE12AFA329C8ECE300AE49A2 /* AppFullScreenHeaderCell.swift */,
+				CE6A51EC29CA238B00F9969D /* TodayMultipleAppCell.swift */,
+				CE6A51EE29CA321200F9969D /* BaseTodayCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -469,17 +478,20 @@
 				CE7AF37129B21A56002107FE /* MainTabBarController.swift in Sources */,
 				CE7AF37329B2440B002107FE /* Icons.swift in Sources */,
 				CED5C0A129C0F5F8005265F9 /* ScreenshotsAppCell.swift in Sources */,
+				CE6A51EF29CA321200F9969D /* BaseTodayCell.swift in Sources */,
 				CE26A9B229B7B27600EDEE56 /* Extensions.swift in Sources */,
 				CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */,
 				CE2F0CCD29C2325000CA32F4 /* Reviews.swift in Sources */,
 				CE26A9A729B7820C00EDEE56 /* AppPageController.swift in Sources */,
 				CE17028829C4C1E00078B8FE /* TodayCell.swift in Sources */,
+				CE6A51F129CB36D800F9969D /* TodayMultipleAppController.swift in Sources */,
 				CE178F1929BF617D00E265AF /* HorizontalSnappingController.swift in Sources */,
 				CE8E80E329C204D300274FC1 /* ReviewRowCell.swift in Sources */,
 				CE922C6429BB844400D799CA /* AppHeaderApps.swift in Sources */,
 				CED5C0A329C0FACF005265F9 /* ScreenshotController.swift in Sources */,
 				CE8E80E529C2087800274FC1 /* ReviewController.swift in Sources */,
 				CE922C6229BA48F000D799CA /* AppResult.swift in Sources */,
+				CE6A51ED29CA238B00F9969D /* TodayMultipleAppCell.swift in Sources */,
 				CE817A3929C8A26B00DF383D /* AppFullScreenController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

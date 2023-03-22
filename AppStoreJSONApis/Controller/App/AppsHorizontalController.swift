@@ -9,7 +9,7 @@ import UIKit
 
 class AppsHorizontalController: HorizontalSnappingController {
     
-    private let reuseIdentifier = "cellId"
+    static let reuseIdentifier = "cellId"
     private let lineSpacing: CGFloat = 12
     
     var appResult: AppResult?
@@ -17,7 +17,7 @@ class AppsHorizontalController: HorizontalSnappingController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: AppsHorizontalController.reuseIdentifier)
         collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
     }
     
@@ -29,11 +29,9 @@ class AppsHorizontalController: HorizontalSnappingController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AppRowCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsHorizontalController.reuseIdentifier, for: indexPath) as! AppRowCell
         guard let app = appResult?.feed.results[indexPath.item] else { return UICollectionViewCell() }
-        cell.companyNameLabel.text = app.artistName
-        cell.appNameLabel.text = app.name
-        cell.appIconImageView.sd_setImage(with: URL(string: app.artworkUrl100))
+        cell.feedResult = app
         return cell
     }
     

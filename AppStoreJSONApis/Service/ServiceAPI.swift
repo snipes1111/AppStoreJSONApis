@@ -22,13 +22,13 @@ class Service {
         fetchGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/apps/top-paid/25/apps.json", completion: completion)
     }
     
-    // helpers
-    func fetchGroup(urlString: String, completion: @escaping (AppResult?, Error?) -> Void) {
-        fetchGenericJSONData(urlString: urlString, completion: completion)
-    }
-    
     func fetchAppHeaderApps(completion: @escaping ([AppHeaderApps]?, Error?) -> Void) {
         fetchGenericJSONData(urlString: "http://api.letsbuildthatapp.com/appstore/social", completion: completion)
+    }
+    
+    // helpers
+    private func fetchGroup(urlString: String, completion: @escaping (AppResult?, Error?) -> Void) {
+        fetchGenericJSONData(urlString: urlString, completion: completion)
     }
     
     // implement generic

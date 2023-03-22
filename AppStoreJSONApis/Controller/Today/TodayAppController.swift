@@ -9,17 +9,19 @@ import UIKit
 
 class TodayAppController: BaseSectionController {
     
-    private let reuseIdentifier = "cell"
     private let todayItems = [
-        TodayItem(category: "LIFE HACK", title: "Utilizing your Time", descriptionText: "All the tools and apps you need to intelligently orginize your life the right way", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white),
-        TodayItem(category: "HOLIDAYS", title: "Travel on a budget", descriptionText: "Find out all you need to know on how to travel without packing everything!", image: #imageLiteral(resourceName: "holiday"), backGroundColor: #colorLiteral(red: 0.9808613658, green: 0.9632887244, blue: 0.7228078246, alpha: 1))
+        TodayItem(category: "LIFE HACK", title: "Utilizing your Time", descriptionText: "All the tools and apps you need to intelligently orginize your life the right way!", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType: .single),
+        TodayItem(category: "SECOND CELL", title: "Test-Drive These CarPlay Apps", descriptionText: "", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType:  .multiple),
+        TodayItem(category: "HOLIDAYS", title: "Travel on a budget", descriptionText: "Find out all you need to know on how to travel without packing everything!", image: #imageLiteral(resourceName: "holiday"), backGroundColor: #colorLiteral(red: 0.9808613658, green: 0.9632887244, blue: 0.7228078246, alpha: 1), cellType: .single),
+        TodayItem(category: "MULTIPLE CELL", title: "Test-Drive These CarPlay Apps", descriptionText: "", image: #imageLiteral(resourceName: "garden"), backGroundColor: .white, cellType:  .multiple)
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = #colorLiteral(red: 0.9019607902, green: 0.9019607902, blue: 0.9019607902, alpha: 1)
         navigationController?.isNavigationBarHidden = true
-        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
+        collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -27,7 +29,9 @@ class TodayAppController: BaseSectionController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TodayCell
+        
+        let typeCell = todayItems[indexPath.item].cellType.rawValue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: typeCell, for: indexPath) as! BaseTodayCell
         cell.todayItem = todayItems[indexPath.item]
         return cell
     }
@@ -39,6 +43,8 @@ class TodayAppController: BaseSectionController {
     private var leadingConstraint: NSLayoutConstraint?
     private var widthConstraint: NSLayoutConstraint?
     private var heightConstraint: NSLayoutConstraint?
+    
+    private var startingFrame: CGRect?
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -74,14 +80,9 @@ class TodayAppController: BaseSectionController {
             self.tabBarController?.tabBar.frame.origin.y += self.tabBarHeight ?? 0
             self.view.layoutIfNeeded()
             
-            if let cell = self.appFullScreenController.tableView.cellForRow(at: [0,0]) as? AppFullScreenHeaderCell {
-                cell.todayCell.topConstraint?.constant = 48
-                cell.layoutIfNeeded()
-            }
+            self.moveTopConstraint(direction: .up)
         }
     }
-    
-    private var startingFrame: CGRect?
     
     private func handleRemoveRedView() {
 
@@ -99,10 +100,7 @@ class TodayAppController: BaseSectionController {
             
             self.appFullScreenController.tableView.contentOffset = .zero
             
-            if let cell = self.appFullScreenController.tableView.cellForRow(at: [0,0]) as? AppFullScreenHeaderCell {
-                cell.todayCell.topConstraint?.constant = 24
-                cell.layoutIfNeeded()
-            }
+            self.moveTopConstraint(direction: .down)
             
         } completion: { _ in
             
@@ -116,13 +114,34 @@ class TodayAppController: BaseSectionController {
 }
 
 extension TodayAppController: UICollectionViewDelegateFlowLayout {
+    
+    static let cellHeight: CGFloat = 450
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: view.frame.width - 64, height: 400)
+        .init(width: view.frame.width - 64, height: TodayAppController.cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         32
     }
+    
+}
+
+extension TodayAppController {
+    // moving top constraint for cell up and down
+    
+    enum Direction: CGFloat {
+        case up = 48
+        case down = 24
+    }
+    
+    private func moveTopConstraint(direction: Direction) {
+        if let cell = self.appFullScreenController.tableView.cellForRow(at: [0,0]) as? AppFullScreenHeaderCell {
+            cell.todayCell.topConstraint?.constant = direction.rawValue
+            cell.layoutIfNeeded()
+        }
+    }
+    
     
 }
     

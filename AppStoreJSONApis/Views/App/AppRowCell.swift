@@ -9,13 +9,24 @@ import UIKit
 
 class AppRowCell: UnderlineCellWithNoConstraint {
     
+    var feedResult: FeedResults! {
+        didSet {
+            companyNameLabel.text = feedResult.artistName
+            appNameLabel.text = feedResult.name
+            appIconImageView.sd_setImage(with: URL(string: feedResult.artworkUrl100))
+        }
+    }
+    
     let appIconImageView = UIImageView(cornerRadius: 12)
-    let appNameLabel = UILabel(text: "App name", font: .systemFont(ofSize: 18))
+    let appNameLabel = UILabel(text: "App name", font: .boldSystemFont(ofSize: 16))
     let companyNameLabel = UILabel(text: "Company name", font: .systemFont(ofSize: 12))
     private let getButton = UIButton(title: "GET")
-    lazy var imageHeight = self.frame.height - 8
+    lazy var imageHeight = self.frame.height - 13
     
     override init(frame: CGRect) {
+        
+        companyNameLabel.textColor = UIColor(white: 0.5, alpha: 1)
+        
         super.init(frame: frame)
         appIconImageView.constrainWidth(constant: imageHeight)
         appIconImageView.constrainHeight(constant: imageHeight)
@@ -31,8 +42,8 @@ class AppRowCell: UnderlineCellWithNoConstraint {
         overalStackView.spacing = 12
         overalStackView.alignment = .center
         addSubview(overalStackView)
-        overalStackView.fillSuperview(padding: .init(top: 0, left: 0, bottom: 8, right: 0))
-        underlineView.anchor(top: nil, leading: companyNameLabel.leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+        overalStackView.fillSuperview(padding: .init(top: 0, left: 0, bottom: 1, right: 0))
+        underlineView.anchor(top: nil, leading: companyNameLabel.leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
         
     }
     
