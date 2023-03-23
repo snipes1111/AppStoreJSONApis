@@ -33,6 +33,7 @@ class TodayAppController: BaseSectionController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = #colorLiteral(red: 0.9019607902, green: 0.9019607902, blue: 0.9019607902, alpha: 1)
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: 12, right: 0)
         navigationController?.isNavigationBarHidden = true
         collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
         collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
