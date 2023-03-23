@@ -21,6 +21,13 @@ class AppFullScreenController: UITableViewController {
         tableView.contentInset = .init(top: 0, left: 0, bottom: 48, right: 0)
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 0 {
+            scrollView.isScrollEnabled = false
+            scrollView.isScrollEnabled = true
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         2
     }

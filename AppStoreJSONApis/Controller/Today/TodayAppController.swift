@@ -20,18 +20,20 @@ class TodayAppController: BaseSectionController {
     private var todayItems = [TodayItem]()
     
     private var appFullScreenController: AppFullScreenController!
-    
-    private var topConstraint: NSLayoutConstraint?
-    private var leadingConstraint: NSLayoutConstraint?
-    private var widthConstraint: NSLayoutConstraint?
-    private var heightConstraint: NSLayoutConstraint?
-    
+    private var anchorConstraints: AnchoredConstraints?
     private var startingFrame: CGRect?
+    
+    private var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     
     lazy var tabBarHeight = tabBarController?.tabBar.frame.size.height
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(blurView)
+        blurView.fillSuperview()
+        blurView.alpha = 0
+        
         collectionView.backgroundColor = #colorLiteral(red: 0.9019607902, green: 0.9019607902, blue: 0.9019607902, alpha: 1)
         collectionView.contentInset = .init(top: 0, left: 0, bottom: 12, right: 0)
         navigationController?.isNavigationBarHidden = true
@@ -53,37 +55,30 @@ class TodayAppController: BaseSectionController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: typeCell, for: indexPath) as! BaseTodayCell
         cell.todayItem = todayItems[indexPath.item]
         
-        (cell as? TodayMultipleAppCell)?.appCollectionViewController.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMultipleAppstap)))
+        (cell as? TodayMultipleAppCell)?.appCollectionViewController.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMultipleAppsTap)))
         
         return cell
     }
     
-    @objc private func handleMultipleAppstap(gesture: UITapGestureRecognizer) {
+    @objc private func handleMultipleAppsTap(gesture: UITapGestureRecognizer) {
         let collectionView = gesture.view
-        
         var superView = collectionView?.superview
-        
         while superView != nil {
             if let cell = superView as? TodayMultipleAppCell {
                 guard let indexPath = self.collectionView.indexPath(for: cell) else { return }
-                let todayItem = todayItems[indexPath.item]
-                presentMultipleCell(todayItem: todayItem)
+                presentMultipleCell(indexPath: indexPath)
             }
             superView = superView?.superview
         }
-        
-        
-        
-        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let todayItem = todayItems[indexPath.item]
         
-        if todayItem.cellType == .single {
+        switch todayItems[indexPath.item].cellType {
+        case .single:
             presentSingleCell(indexPath: indexPath)
-        } else {
-            presentMultipleCell(todayItem: todayItem)
+        case .multiple:
+            presentMultipleCell(indexPath: indexPath)
         }
     }
     
@@ -103,7 +98,7 @@ extension TodayAppController: UICollectionViewDelegateFlowLayout {
     
 }
 
-extension TodayAppController {
+extension TodayAppController: UIGestureRecognizerDelegate {
     // moving top constraint for cell up and down
     
     enum Direction: CGFloat {
@@ -115,6 +110,11 @@ extension TodayAppController {
         
         if let cell = self.appFullScreenController.tableView.cellForRow(at: [0,0]) as? AppFullScreenHeaderCell {
             cell.todayCell.topConstraint?.constant = direction.rawValue
+            
+            if direction == .down {
+                cell.closeButton.alpha = 0
+            }
+            
             cell.layoutIfNeeded()
         }
     }
@@ -156,58 +156,83 @@ extension TodayAppController {
         }
     }
     
+    private func presentMultipleCell(indexPath: IndexPath) {
+        let todayItem = todayItems[indexPath.item]
+        let appListController = TodayMultipleAppController(mode: .fullScreen)
+        let navVC = BackEnabledNavigationController(rootViewController: appListController)
+        appListController.appResults = todayItem.feedResult
+        navVC.modalPresentationStyle = .automatic
+        present(navVC, animated: true)
+    }
+    
     private func presentSingleCell(indexPath: IndexPath) {
         self.collectionView.isUserInteractionEnabled = false
         
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
-        self.startingFrame = startingFrame
+        // #1 Setup appFullScreenController
+        setupAppFullScreenController(indexPath: indexPath)
+        
+        // #2 Calculate absolute cell's frame, setup appFullScreenController's view to it's start position and constraints for starting animation
+        
+        setupAppFullScreenView(indexPath: indexPath)
+        
+        // #3 Animation transition
+        
+        beginAnimationAppFullScreenView()
+    }
+    
+    private func setupAppFullScreenController(indexPath: IndexPath) {
         
         appFullScreenController = AppFullScreenController()
-        appFullScreenController.dismissHandler = { self.handleRemoveRedView() }
+        appFullScreenController.dismissHandler = { self.handleRemoveAppFullScreenView() }
         appFullScreenController.todayItem = todayItems[indexPath.item]
-        addChild(appFullScreenController)
         
-        let appFullScreenView = appFullScreenController.view!
-        appFullScreenView.layer.cornerRadius = 12
-        view.addSubview(appFullScreenView)
+        // #1 Setup gesture
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(handleDrag))
+        gesture.delegate = self
+        appFullScreenController.view.addGestureRecognizer(gesture)
+        // #2 Add a blur effect to a view
         
-        appFullScreenView.translatesAutoresizingMaskIntoConstraints = false
-        topConstraint = appFullScreenView.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
-        leadingConstraint = appFullScreenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
-        widthConstraint = appFullScreenView.widthAnchor.constraint(equalToConstant: startingFrame.width)
-        heightConstraint = appFullScreenView.heightAnchor.constraint(equalToConstant: startingFrame.height)
-        [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach { $0?.isActive = true }
-        view.layoutIfNeeded() // starts animation
+        // #3 Not to enterfere with tableview scrolling
+    }
+    
+    @objc private func handleDrag(gesture: UIPanGestureRecognizer) {
+        let translationY = gesture.translation(in: appFullScreenController.view).y
+        var appFullScreenBeginOffset: CGFloat = 0
         
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+        if gesture.state == .began { appFullScreenBeginOffset = appFullScreenController.tableView.contentOffset.y }
+        if appFullScreenBeginOffset > 0 { return }
+        if translationY > 0 {
+            let trueOffset = translationY - appFullScreenBeginOffset
+            var scale = 1 - trueOffset / 1000
+            scale = min(1, scale)
+            scale = max(0.5, scale)
+            appFullScreenController.view.transform = CGAffineTransform(scaleX: scale, y: scale)
             
-            self.topConstraint?.constant = 0
-            self.leadingConstraint?.constant = 0
-            self.widthConstraint?.constant = self.view.frame.width
-            self.heightConstraint?.constant = self.view.frame.height
-            self.tabBarController?.tabBar.frame.origin.y += self.tabBarHeight ?? 0
-            self.view.layoutIfNeeded()
-            
-            self.moveTopConstraint(direction: .up)
+            if gesture.state == .ended { handleRemoveAppFullScreenView() }
         }
     }
     
-    private func handleRemoveRedView() {
+    private func handleRemoveAppFullScreenView() {
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             
-            guard let startingFrame = self.startingFrame else { return }
+            self.blurView.alpha = 0
             
-            self.topConstraint?.constant = startingFrame.origin.y
-            self.leadingConstraint?.constant = startingFrame.origin.x
-            self.widthConstraint?.constant = startingFrame.width
-            self.heightConstraint?.constant = startingFrame.height
+            guard let startingFrame = self.startingFrame else { return }
+
+            self.anchorConstraints?.top?.constant = startingFrame.origin.y
+            self.anchorConstraints?.leading?.constant = startingFrame.origin.x
+            self.anchorConstraints?.width?.constant = startingFrame.width
+            self.anchorConstraints?.height?.constant = startingFrame.height
             self.tabBarController?.tabBar.frame.origin.y -= self.tabBarHeight ?? 0
+            
+            //this method used for to restore appVCView properties after dragging it to remove from view
+            self.appFullScreenController.view.transform = .identity
             
             self.view.layoutIfNeeded()
             
             self.appFullScreenController.tableView.contentOffset = .zero
+            
             
             self.moveTopConstraint(direction: .down)
             
@@ -220,12 +245,47 @@ extension TodayAppController {
         
     }
     
-    private func presentMultipleCell(todayItem: TodayItem) {
-        let appListController = TodayMultipleAppController(mode: .fullScreen)
-        let navVC = BackEnabledNavigationController(rootViewController: appListController)
-        appListController.appResults = todayItem.feedResult
-        navVC.modalPresentationStyle = .automatic
-        present(navVC, animated: true)
+    private func setupAppFullScreenView(indexPath: IndexPath) {
+        
+        let appFullScreenView = appFullScreenController.view!
+        appFullScreenView.layer.cornerRadius = 12
+        addChild(appFullScreenController)
+        view.addSubview(appFullScreenView)
+        
+        calculateStartingPosition(indexPath: indexPath)
+        
+        guard let startingFrame = self.startingFrame else { return }
+        
+        let anchorConstraints = appFullScreenView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: startingFrame.origin.y, left: startingFrame.origin.x, bottom: 0, right: 0), size: .init(width: startingFrame.width, height: startingFrame.height))
+        self.anchorConstraints = anchorConstraints
+        view.layoutIfNeeded() // starts animation
+    }
+    
+    private func calculateStartingPosition(indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
+        self.startingFrame = startingFrame
+    }
+    
+    private func beginAnimationAppFullScreenView() {
+       
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+            
+            self.blurView.alpha = 1
+            
+            self.anchorConstraints?.top?.constant = 0
+            self.anchorConstraints?.leading?.constant = 0
+            self.anchorConstraints?.width?.constant = self.view.frame.width
+            self.anchorConstraints?.height?.constant = self.view.frame.height
+            self.tabBarController?.tabBar.frame.origin.y += self.tabBarHeight ?? 0
+            self.view.layoutIfNeeded()
+            
+            self.moveTopConstraint(direction: .up)
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
     }
 }
 
