@@ -51,18 +51,38 @@ class TodayAppController: BaseSectionController {
         let typeCell = todayItems[indexPath.item].cellType.rawValue
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: typeCell, for: indexPath) as! BaseTodayCell
         cell.todayItem = todayItems[indexPath.item]
+        
+        (cell as? TodayMultipleAppCell)?.appCollectionViewController.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMultipleAppstap)))
+        
         return cell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let todaiItem = todayItems[indexPath.item]
+    @objc private func handleMultipleAppstap(gesture: UITapGestureRecognizer) {
+        let collectionView = gesture.view
         
-        if todaiItem.cellType == .single {
+        var superView = collectionView?.superview
+        
+        while superView != nil {
+            if let cell = superView as? TodayMultipleAppCell {
+                guard let indexPath = self.collectionView.indexPath(for: cell) else { return }
+                let todayItem = todayItems[indexPath.item]
+                presentMultipleCell(todayItem: todayItem)
+            }
+            superView = superView?.superview
+        }
+        
+        
+        
+        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let todayItem = todayItems[indexPath.item]
+        
+        if todayItem.cellType == .single {
             presentSingleCell(indexPath: indexPath)
         } else {
-            let vc = TodayMultipleAppController(mode: .fullScreen)
-            vc.appResults = todaiItem.feedResult
-            present(vc, animated: true)
+            presentMultipleCell(todayItem: todayItem)
         }
     }
     
@@ -197,6 +217,14 @@ extension TodayAppController {
             self.collectionView.isUserInteractionEnabled = true
         }
         
+    }
+    
+    private func presentMultipleCell(todayItem: TodayItem) {
+        let appListController = TodayMultipleAppController(mode: .fullScreen)
+        let navVC = BackEnabledNavigationController(rootViewController: appListController)
+        appListController.appResults = todayItem.feedResult
+        navVC.modalPresentationStyle = .automatic
+        present(navVC, animated: true)
     }
 }
 

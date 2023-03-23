@@ -32,8 +32,10 @@ class TodayMultipleAppController: BaseSectionController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: AppsHorizontalController.reuseIdentifier)
-        
+        navigationController?.isNavigationBarHidden = true
     }
+    
+    override var prefersStatusBarHidden: Bool { return true }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return mode == .compact ? min(4, appResults.count) : appResults.count
@@ -43,6 +45,12 @@ class TodayMultipleAppController: BaseSectionController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsHorizontalController.reuseIdentifier, for: indexPath) as! AppRowCell
         cell.feedResult = appResults[indexPath.item]
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let app = appResults[indexPath.item]
+        let fullVC = AppDetailController(appId: app.id)
+        navigationController?.pushViewController(fullVC, animated: true)
     }
     
 }
