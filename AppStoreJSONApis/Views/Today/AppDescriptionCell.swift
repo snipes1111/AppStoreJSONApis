@@ -19,11 +19,13 @@ class AppDescriptionCell: UITableViewCell {
         attributedText.append(NSAttributedString(string: """
                                                  
                                                  
+                                                 
                                                  Heroic adventure
                                                  """,
                                                  attributes: [.foregroundColor: UIColor.black]))
         
         attributedText.append(NSAttributedString(string: """
+                                                 
                                                  
                                                  Battle in dungeons. Collect treasure. Solve puzzles. Sail to new lands. Oceanhorn lets you do it all in a beautifully detailed world.
                                                  """,
@@ -32,11 +34,34 @@ class AppDescriptionCell: UITableViewCell {
         attributedText.append(NSAttributedString(string: """
                                                  
                                                  
+                                                 
                                                  Heroic adventure
                                                  """,
                                                  attributes: [.foregroundColor: UIColor.black]))
         
         attributedText.append(NSAttributedString(string: """
+                                                 
+                                                 
+                                                 Battle in dungeons. Collect treasure. Solve puzzles. Sail to new lands. Oceanhorn lets you do it all in a beautifully detailed world.
+                                                 """,
+                                                 attributes: [.foregroundColor: UIColor.gray]))
+        attributedText.append(NSAttributedString(string: """
+                                                 
+                                                 
+                                                 Battle in dungeons. Collect treasure. Solve puzzles. Sail to new lands. Oceanhorn lets you do it all in a beautifully detailed world.
+                                                 """,
+                                                 attributes: [.foregroundColor: UIColor.gray]))
+        
+        attributedText.append(NSAttributedString(string: """
+                                                 
+                                                 
+                                                 
+                                                 Heroic adventure
+                                                 """,
+                                                 attributes: [.foregroundColor: UIColor.black]))
+        
+        attributedText.append(NSAttributedString(string: """
+                                                 
                                                  
                                                  Battle in dungeons. Collect treasure. Solve puzzles. Sail to new lands. Oceanhorn lets you do it all in a beautifully detailed world.
                                                  """,

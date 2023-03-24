@@ -25,6 +25,8 @@ class TodayAppController: BaseSectionController {
     
     private var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     
+    private var appFullScreenBeginOffset: CGFloat = 0
+    
     lazy var tabBarHeight = tabBarController?.tabBar.frame.size.height
     
     override func viewDidLoad() {
@@ -112,7 +114,7 @@ extension TodayAppController: UIGestureRecognizerDelegate {
             cell.todayCell.topConstraint?.constant = direction.rawValue
             
             if direction == .down {
-                cell.closeButton.alpha = 0
+                appFullScreenController.closeButton.alpha = 0
             }
             
             cell.layoutIfNeeded()
@@ -196,20 +198,27 @@ extension TodayAppController: UIGestureRecognizerDelegate {
     }
     
     @objc private func handleDrag(gesture: UIPanGestureRecognizer) {
-        let translationY = gesture.translation(in: appFullScreenController.view).y
-        var appFullScreenBeginOffset: CGFloat = 0
         
-        if gesture.state == .began { appFullScreenBeginOffset = appFullScreenController.tableView.contentOffset.y }
+        if gesture.state == .began {
+            appFullScreenBeginOffset = appFullScreenController.tableView.contentOffset.y
+        }
+        
         if appFullScreenBeginOffset > 0 { return }
-        if translationY > 0 {
+        
+        let translationY = gesture.translation(in: appFullScreenController.view).y
+        
+        if gesture.state == .changed && translationY > 0 {
             let trueOffset = translationY - appFullScreenBeginOffset
             var scale = 1 - trueOffset / 1000
             scale = min(1, scale)
             scale = max(0.5, scale)
             appFullScreenController.view.transform = CGAffineTransform(scaleX: scale, y: scale)
-            
-            if gesture.state == .ended { handleRemoveAppFullScreenView() }
+        } else if gesture.state == .ended {
+            if translationY > 0 {
+                handleRemoveAppFullScreenView()
+            }
         }
+        
     }
     
     private func handleRemoveAppFullScreenView() {
@@ -219,7 +228,7 @@ extension TodayAppController: UIGestureRecognizerDelegate {
             self.blurView.alpha = 0
             
             guard let startingFrame = self.startingFrame else { return }
-
+            
             self.anchorConstraints?.top?.constant = startingFrame.origin.y
             self.anchorConstraints?.leading?.constant = startingFrame.origin.x
             self.anchorConstraints?.width?.constant = startingFrame.width
@@ -268,7 +277,7 @@ extension TodayAppController: UIGestureRecognizerDelegate {
     }
     
     private func beginAnimationAppFullScreenView() {
-       
+        
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             
             self.blurView.alpha = 1
