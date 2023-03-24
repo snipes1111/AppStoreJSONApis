@@ -6,7 +6,7 @@
 //
 
 enum Section: String {
-    case today = "Today", search = "Search", apps = "Apps"
+    case today = "Today", search = "Search", apps = "Apps", music = "Music"
 }
 
 public struct Icons {
@@ -15,6 +15,7 @@ public struct Icons {
     private var today = "doc.text.image"
     private var search = "magnifyingglass.circle"
     private var apps = "square.stack.3d.up.fill"
+    private var music = "music.note.list"
     
     func getImage(section: Section) -> String {
         switch section {
@@ -24,6 +25,8 @@ public struct Icons {
             return apps
         case .search:
             return search
+        case .music:
+            return music
         }
     }
 }

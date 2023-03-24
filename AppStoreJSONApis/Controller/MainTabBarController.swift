@@ -12,6 +12,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewControllers = [
+            createNavController(viewController: MusicController(), title: Section.music.rawValue, image: Icons.shared.getImage(section: .music)),
             createNavController(viewController: TodayAppController(), title: Section.today.rawValue, image: Icons.shared.getImage(section: .today)),
             createNavController(viewController: AppPageController(), title: Section.apps.rawValue, image: Icons.shared.getImage(section: .apps)),
             createNavController(viewController: AppSearchController(), title: Section.search.rawValue, image: Icons.shared.getImage(section: .search))

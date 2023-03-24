@@ -54,6 +54,10 @@
 		CE922C6429BB844400D799CA /* AppHeaderApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE922C6329BB844400D799CA /* AppHeaderApps.swift */; };
 		CED5C0A129C0F5F8005265F9 /* ScreenshotsAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED5C0A029C0F5F8005265F9 /* ScreenshotsAppCell.swift */; };
 		CED5C0A329C0FACF005265F9 /* ScreenshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED5C0A229C0FACF005265F9 /* ScreenshotController.swift */; };
+		CEFF50DF29CE058D00E33A87 /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF50DE29CE058D00E33A87 /* MusicController.swift */; };
+		CEFF50E229CE07B500E33A87 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF50E129CE07B500E33A87 /* TrackCell.swift */; };
+		CEFF50E529CE0BE200E33A87 /* MusicControllerFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF50E429CE0BE200E33A87 /* MusicControllerFooter.swift */; };
+		CEFF50E729CE151600E33A87 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF50E629CE151600E33A87 /* Music.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +111,10 @@
 		CE922C6329BB844400D799CA /* AppHeaderApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderApps.swift; sourceTree = "<group>"; };
 		CED5C0A029C0F5F8005265F9 /* ScreenshotsAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsAppCell.swift; sourceTree = "<group>"; };
 		CED5C0A229C0FACF005265F9 /* ScreenshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotController.swift; sourceTree = "<group>"; };
+		CEFF50DE29CE058D00E33A87 /* MusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicController.swift; sourceTree = "<group>"; };
+		CEFF50E129CE07B500E33A87 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		CEFF50E429CE0BE200E33A87 /* MusicControllerFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicControllerFooter.swift; sourceTree = "<group>"; };
+		CEFF50E629CE151600E33A87 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		F6FC875F0757232EDC75D54B /* Pods-AppStoreJSONApis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONApis.release.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONApis/Pods-AppStoreJSONApis.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +193,7 @@
 		CE26A9AC29B7877F00EDEE56 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEFF50E329CE07BE00E33A87 /* Music */,
 				CE17028629C4C1BE0078B8FE /* Today */,
 				CED5C09D29C0F188005265F9 /* Search */,
 				CED5C09E29C0F1B5005265F9 /* App */,
@@ -232,6 +241,7 @@
 		CE7AF37629B24D0F002107FE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CEFF50E029CE059500E33A87 /* Music */,
 				CE17028329C4B6460078B8FE /* Today */,
 				CE7AF38429B78036002107FE /* Search */,
 				CE7AF38629B78073002107FE /* App */,
@@ -261,6 +271,7 @@
 				CE922C6329BB844400D799CA /* AppHeaderApps.swift */,
 				CE2F0CCC29C2325000CA32F4 /* Reviews.swift */,
 				CE6A51EA29C9FC4800F9969D /* TodayItem.swift */,
+				CEFF50E629CE151600E33A87 /* Music.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -337,6 +348,23 @@
 				CE922C5F29BA075D00D799CA /* AppsHeaderCell.swift */,
 			);
 			path = Header;
+			sourceTree = "<group>";
+		};
+		CEFF50E029CE059500E33A87 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF50DE29CE058D00E33A87 /* MusicController.swift */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		CEFF50E329CE07BE00E33A87 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF50E129CE07B500E33A87 /* TrackCell.swift */,
+				CEFF50E429CE0BE200E33A87 /* MusicControllerFooter.swift */,
+			);
+			path = Music;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -462,6 +490,7 @@
 				CE12AFA429C8ECE300AE49A2 /* AppFullScreenHeaderCell.swift in Sources */,
 				CE17028229C368D90078B8FE /* UnderlineCell.swift in Sources */,
 				CE7AF37D29B38C40002107FE /* VerticalStackView.swift in Sources */,
+				CEFF50E729CE151600E33A87 /* Music.swift in Sources */,
 				CE17028529C4C00C0078B8FE /* TodayAppController.swift in Sources */,
 				CE7AF38029B6362C002107FE /* SearchResult.swift in Sources */,
 				CE26A9B029B7B1DE00EDEE56 /* AppRowCell.swift in Sources */,
@@ -479,10 +508,13 @@
 				CE26A9A929B784CA00EDEE56 /* BaseSectionController.swift in Sources */,
 				CE922C5C29B9FC8E00D799CA /* AppPageHeaderView.swift in Sources */,
 				CE817A3B29C8C49D00DF383D /* AppDescriptionCell.swift in Sources */,
+				CEFF50DF29CE058D00E33A87 /* MusicController.swift in Sources */,
 				CE7AF37129B21A56002107FE /* MainTabBarController.swift in Sources */,
 				CE7AF37329B2440B002107FE /* Icons.swift in Sources */,
+				CEFF50E229CE07B500E33A87 /* TrackCell.swift in Sources */,
 				CED5C0A129C0F5F8005265F9 /* ScreenshotsAppCell.swift in Sources */,
 				CE6A51EF29CA321200F9969D /* BaseTodayCell.swift in Sources */,
+				CEFF50E529CE0BE200E33A87 /* MusicControllerFooter.swift in Sources */,
 				CE26A9B229B7B27600EDEE56 /* Extensions.swift in Sources */,
 				CE7AF35D29B21400002107FE /* SceneDelegate.swift in Sources */,
 				CE2F0CCD29C2325000CA32F4 /* Reviews.swift in Sources */,
