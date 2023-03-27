@@ -14,7 +14,7 @@ struct MusicSearchResult: Decodable {
 
 struct MusicResult: Decodable {
     let artistName: String
-    let collectionName: String
+    let collectionName: String?
     let artworkUrl100: String // album icon 100*100
-    let trackName: String
+    let trackName: String?
 }

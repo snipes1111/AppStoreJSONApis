@@ -31,6 +31,7 @@ class AppSearchController: BaseSectionController {
         
         collectionView!.register(SearchResultCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.backgroundColor = .white
+        searchController.searchBar.delegate = self
         setUpSearchBar()
     }
     
@@ -42,7 +43,6 @@ class AppSearchController: BaseSectionController {
         searchController.definesPresentationContext = true
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.delegate = self
-        
     }
     
     // MARK: - Fetching data
