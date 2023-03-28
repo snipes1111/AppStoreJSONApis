@@ -8,5 +8,5 @@
 import Foundation
 
 struct AppHeaderApps: Decodable {
-    var name, tagline, imageUrl: String
+    var name, tagline, imageUrl, id: String
 }
