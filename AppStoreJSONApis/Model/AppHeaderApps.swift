@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct AppHeaderApps: Decodable {
-    var name, tagline, imageUrl, id: String
+struct AppHeaderApps: Decodable, Hashable {
+    var id, name, tagline, imageUrl: String
 }

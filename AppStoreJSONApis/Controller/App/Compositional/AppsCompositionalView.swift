@@ -27,6 +27,10 @@ class SectionHeaderView: UICollectionReusableView {
 
 class CompositionalController: UICollectionViewController {
     
+    private var headerApps = [AppHeaderApps]()
+    private var topPaidApps: AppResult?
+    private var topFreeApps: AppResult?
+    
     init() {
         let layout = UICollectionViewCompositionalLayout { sectionNum, _ in
             if sectionNum == 0 {
@@ -60,8 +64,10 @@ class CompositionalController: UICollectionViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
         section.contentInsets.leading = 12
-        let kind = UICollectionView.elementKindSectionHeader
-        section.boundarySupplementaryItems = [NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: kind, alignment: .topLeading)]
+        
+        if direction == .vertical {
+            section.boundarySupplementaryItems = [NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)]
+        }
         return section
     }
     
@@ -75,108 +81,75 @@ class CompositionalController: UICollectionViewController {
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: "cellId")
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: "headerCell")
         collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderId)
-        fetchData()
+        
+        createDiffableDataSource()
+//        fetchData()
     }
     
-    private var headerApps = [AppHeaderApps]()
-    private var topPaidApps: AppResult?
-    private var topFreeApps: AppResult?
-    
-    func fetchData() {
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        Service.shared.fetchAppHeaderApps { headerApps, err in
-            dispatchGroup.leave()
-            if let err = err {
-                print("Failed to fetch header apps:", err)
-                return
-            }
-            self.headerApps = headerApps ?? []
-        }
-        
-        dispatchGroup.enter()
-        Service.shared.fetchTopPaid { appResult, err in
-            dispatchGroup.leave()
-            if let err = err {
-                print("Failed to fetch header apps:", err)
-                return
-            }
-            self.topPaidApps = appResult
-        }
-        
-        dispatchGroup.enter()
-        Service.shared.fetchTopFree { appResult, err in
-            dispatchGroup.leave()
-            if let err = err {
-                print("Failed to fetch header apps:", err)
-                return
-            }
-            self.topFreeApps = appResult
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            self.collectionView.reloadData()
-        }
+    enum AppSection {
+        case topSocial
+        case topPaid
+        case topFree
     }
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return headerApps.count
-        case 1:
-            return topPaidApps?.feed.results.count ?? 0
-        case 2:
-            return topFreeApps?.feed.results.count ?? 0
-        default:
-            return 0
-        }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let apps = indexPath.section == 1 ? topPaidApps : topFreeApps
-        
-        switch indexPath.section {
-        case 0:
+    lazy var diffableDataSource: UICollectionViewDiffableDataSource<AppSection, AnyHashable> = .init(collectionView: collectionView) { collectionView, indexPath, item in
+        if let item = item as? AppHeaderApps{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCell", for: indexPath) as! AppsHeaderCell
-            let app = headerApps[indexPath.item]
-            cell.companyLabel.text = app.name
-            cell.titleLabel.text = app.tagline
-            cell.titleImageView.sd_setImage(with: URL(string: app.imageUrl))
+            cell.companyLabel.text = item.name
+            cell.titleLabel.text = item.tagline
+            cell.titleImageView.sd_setImage(with: URL(string: item.imageUrl))
             return cell
-        default:
+        } else if let item = item as? FeedResults {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! AppRowCell
-            cell.feedResult = apps?.feed.results[indexPath.item]
+            cell.feedResult = item
             return cell
         }
+        return nil
     }
+ 
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    private func createDiffableDataSource() {
         
-        let apps = indexPath.section == 1 ? topPaidApps : topFreeApps
+        collectionView.dataSource = diffableDataSource
         
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderId, for: indexPath) as! SectionHeaderView
-        header.label.text = apps?.feed.title
-        return header
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
-            let app = headerApps[indexPath.item]
-            let vc = AppDetailController(appId: app.id)
-            navigationController?.pushViewController(vc, animated: true)
-        default:
-            let apps = indexPath.section == 1 ? topPaidApps : topFreeApps
-            let id = apps?.feed.results[indexPath.item].id
-            let vc = AppDetailController(appId: id ?? "")
-            navigationController?.pushViewController(vc, animated: true)
+        diffableDataSource.supplementaryViewProvider = .some({ collectionView, elementKind, indexPath in
+            var title: String
+            let snapshot = self.diffableDataSource.snapshot()
+            guard let object = self.diffableDataSource.itemIdentifier(for: indexPath) else { return UICollectionViewCell() }
+            let section = snapshot.sectionIdentifier(containingItem: object)
+            if section == .topFree {
+                title = "Top Free"
+            } else {
+                title = "Top Paid"
+            }
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: self.sectionHeaderId, for: indexPath) as! SectionHeaderView
+            header.label.text = title
+            return header
+        })
+        
+        
+        
+        Service.shared.fetchAppHeaderApps { appHeaderApps, err in
+            self.checkErr(err: err)
+            Service.shared.fetchTopPaid { topPaid, err in
+                self.checkErr(err: err)
+                Service.shared.fetchTopFree { topFree, err in
+                    self.checkErr(err: err)
+                    
+                    var snapshot = self.diffableDataSource.snapshot()
+                    snapshot.appendSections([.topSocial, .topPaid, .topFree])
+                    snapshot.appendItems(appHeaderApps ?? [], toSection: .topSocial)
+                    snapshot.appendItems(topPaid?.feed.results ?? [], toSection: .topPaid)
+                    snapshot.appendItems(topFree?.feed.results ?? [], toSection: .topFree)
+                    self.diffableDataSource.apply(snapshot)
+                }
+            }
+            
+            
+            
         }
     }
+    
 }
 
 struct AppsView: UIViewControllerRepresentable {
@@ -198,4 +171,102 @@ struct AppsCompositionalView_Previews: PreviewProvider {
         AppsView()
             .edgesIgnoringSafeArea(.all)
     }
+}
+
+
+extension CompositionalController {
+    
+    private func checkErr(err: Error?) {
+        if let err = err {
+            print("Failed to fetch header apps:", err)
+            return
+        }
+    }
+    
+    private func fetchData() {
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        Service.shared.fetchAppHeaderApps { headerApps, err in
+            dispatchGroup.leave()
+            self.checkErr(err: err)
+            self.headerApps = headerApps ?? []
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchTopPaid { appResult, err in
+            dispatchGroup.leave()
+            self.checkErr(err: err)
+            self.topPaidApps = appResult
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchTopFree { appResult, err in
+            dispatchGroup.leave()
+            self.checkErr(err: err)
+            self.topFreeApps = appResult
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    //    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    //        0
+    //    }
+        
+    //    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    //        switch section {
+    //        case 0:
+    //            return headerApps.count
+    //        case 1:
+    //            return topPaidApps?.feed.results.count ?? 0
+    //        case 2:
+    //            return topFreeApps?.feed.results.count ?? 0
+    //        default:
+    //            return 0
+    //        }
+    //    }
+        
+    //    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    //
+    //        let apps = indexPath.section == 1 ? topPaidApps : topFreeApps
+    //
+    //        switch indexPath.section {
+    //        case 0:
+    //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headerCell", for: indexPath) as! AppsHeaderCell
+    //            let app = headerApps[indexPath.item]
+    //            cell.companyLabel.text = app.name
+    //            cell.titleLabel.text = app.tagline
+    //            cell.titleImageView.sd_setImage(with: URL(string: app.imageUrl))
+    //            return cell
+    //        default:
+    //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! AppRowCell
+    //            cell.feedResult = apps?.feed.results[indexPath.item]
+    //            return cell
+    //        }
+    //    }
+        
+    //    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //        switch indexPath.section {
+    //        case 0:
+    //            let app = headerApps[indexPath.item]
+    //            let vc = AppDetailController(appId: app.id)
+    //            navigationController?.pushViewController(vc, animated: true)
+    //        default:
+    //            let apps = indexPath.section == 1 ? topPaidApps : topFreeApps
+    //            let id = apps?.feed.results[indexPath.item].id
+    //            let vc = AppDetailController(appId: id ?? "")
+    //            navigationController?.pushViewController(vc, animated: true)
+    //        }
+    //    }
+    
+    //        override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    //
+    //            let apps = indexPath.section == 1 ? topPaidApps : topFreeApps
+    //
+    //            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderId, for: indexPath) as! SectionHeaderView
+    //            header.label.text = apps?.feed.title
+    //            return header
+    //        }
 }
