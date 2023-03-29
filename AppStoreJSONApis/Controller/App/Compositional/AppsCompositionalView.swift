@@ -81,17 +81,44 @@ class CompositionalController: UICollectionViewController {
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: "cellId")
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: "headerCell")
         collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderId)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Fetch more apps", style: .plain, target: self, action: #selector(fetchMoreApps))
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         
         createDiffableDataSource()
         createHeader()
 //        fetchData()
     }
     
+    
     enum AppSection {
         case topSocial
         case topPaid
         case topFree
+        case secondTopFree
     }
+    
+    @objc private func handleRefresh() {
+        collectionView.refreshControl?.endRefreshing()
+        var snapshot = diffableDataSource.snapshot()
+        snapshot.deleteSections([.secondTopFree])
+        diffableDataSource.apply(snapshot)
+    }
+    
+    @objc private func fetchMoreApps() {
+        Service.shared.fetchTopFree { appResult, err in
+            self.checkErr(err: err)
+            
+            guard let feedResults = appResult?.feed.results else { return }
+            var snapshot = self.diffableDataSource.snapshot()
+            snapshot.deleteSections([.topFree])
+            snapshot.insertSections([.secondTopFree], afterSection: .topSocial)
+            snapshot.appendItems(feedResults, toSection: .secondTopFree)
+            self.diffableDataSource.apply(snapshot)
+        }
+    }
+    
+    
     
     lazy var diffableDataSource: UICollectionViewDiffableDataSource<AppSection, AnyHashable> = .init(collectionView: collectionView) { collectionView, indexPath, item in
         if let item = item as? AppHeaderApps{
@@ -153,8 +180,10 @@ class CompositionalController: UICollectionViewController {
             let section = snapshot.sectionIdentifier(containingItem: object)
             if section == .topFree {
                 title = "Top Free"
-            } else {
+            } else if section == .topPaid {
                 title = "Top Paid"
+            } else {
+                title = "New Added Group"
             }
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: self.sectionHeaderId, for: indexPath) as! SectionHeaderView
             header.label.text = title
