@@ -20,7 +20,7 @@ class AppRowCell: UnderlineCellWithNoConstraint {
     let appIconImageView = UIImageView(cornerRadius: 12)
     let appNameLabel = UILabel(text: "App name", font: .boldSystemFont(ofSize: 16))
     let companyNameLabel = UILabel(text: "Company name", font: .systemFont(ofSize: 12))
-    private let getButton = UIButton(title: "GET")
+    let getButton = UIButton(title: "GET")
     lazy var imageHeight = self.frame.height - 13
     
     override init(frame: CGRect) {

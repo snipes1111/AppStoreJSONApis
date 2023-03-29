@@ -52,13 +52,13 @@ class CompositionalController: UICollectionViewController {
         var item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
         item.contentInsets.trailing = 12
         item.contentInsets.bottom = 16
-        var group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.3)), subitems: [item])
+        var group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.35)), subitems: [item])
         
         if direction == .vertical {
             item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)))
             item.contentInsets.trailing = 12
             item.contentInsets.bottom = 16
-            group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.4)), subitems: [item])
+            group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.3)), subitems: [item])
         }
         
         let section = NSCollectionLayoutSection(group: group)
@@ -83,6 +83,7 @@ class CompositionalController: UICollectionViewController {
         collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderId)
         
         createDiffableDataSource()
+        createHeader()
 //        fetchData()
     }
     
@@ -102,32 +103,29 @@ class CompositionalController: UICollectionViewController {
         } else if let item = item as? FeedResults {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! AppRowCell
             cell.feedResult = item
+            cell.getButton.addTarget(self, action: #selector(self.handleTap), for: .primaryActionTriggered)
             return cell
         }
         return nil
     }
  
+    @objc private func handleTap(button: UIButton) {
+        var superview = button.superview
+        while superview != nil {
+            superview = superview?.superview
+            if let superview = superview as? AppRowCell {
+                guard let indexPath = collectionView.indexPath(for: superview) else { return }
+                guard let object = diffableDataSource.itemIdentifier(for: indexPath) as? FeedResults else { return }
+                var snapshot = diffableDataSource.snapshot()
+                snapshot.deleteItems([object])
+                diffableDataSource.apply(snapshot)
+            }
+        }
+    }
     
     private func createDiffableDataSource() {
         
         collectionView.dataSource = diffableDataSource
-        
-        diffableDataSource.supplementaryViewProvider = .some({ collectionView, elementKind, indexPath in
-            var title: String
-            let snapshot = self.diffableDataSource.snapshot()
-            guard let object = self.diffableDataSource.itemIdentifier(for: indexPath) else { return UICollectionViewCell() }
-            let section = snapshot.sectionIdentifier(containingItem: object)
-            if section == .topFree {
-                title = "Top Free"
-            } else {
-                title = "Top Paid"
-            }
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: self.sectionHeaderId, for: indexPath) as! SectionHeaderView
-            header.label.text = title
-            return header
-        })
-        
-        
         
         Service.shared.fetchAppHeaderApps { appHeaderApps, err in
             self.checkErr(err: err)
@@ -144,10 +142,35 @@ class CompositionalController: UICollectionViewController {
                     self.diffableDataSource.apply(snapshot)
                 }
             }
-            
-            
-            
         }
+    }
+    
+    private func createHeader() {
+        diffableDataSource.supplementaryViewProvider = .some({ collectionView, elementKind, indexPath in
+            var title: String
+            let snapshot = self.diffableDataSource.snapshot()
+            guard let object = self.diffableDataSource.itemIdentifier(for: indexPath) else { return UICollectionViewCell() }
+            let section = snapshot.sectionIdentifier(containingItem: object)
+            if section == .topFree {
+                title = "Top Free"
+            } else {
+                title = "Top Paid"
+            }
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: self.sectionHeaderId, for: indexPath) as! SectionHeaderView
+            header.label.text = title
+            return header
+        })
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let object = diffableDataSource.itemIdentifier(for: indexPath)
+        var vc = UIViewController()
+        if let object = object as? FeedResults {
+            vc = AppDetailController(appId: object.id)
+        } else if let object = object as? AppHeaderApps {
+            vc = AppDetailController(appId: object.id)
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
