@@ -23,26 +23,21 @@ Purpose
 
 This project serves as a UIKit playground for experimenting with iOS app development.
 
-Explore and enjoy! 🚀!
-<a href="#">
-  <details>
-    <summary>Animation transition</summary><ul>
-    <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/b931c11c-2758-4dc0-93f5-a7fd645104d2" alt="Animation transition">
-  </details>
-</a>
-<a href="#">
-  <details>
+<details>
+<summary>Animation transition</summary>
+<img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/b931c11c-2758-4dc0-93f5-a7fd645104d2" alt="Animation transition">
+</details>
+
+<details>
     <summary>Pagination</summary>
     <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/0dfe3a2f-5a65-416f-90e8-529fd890c51f" alt="Pagination">
-  </details>
-</a>
-<a href="#">
-  <details>
+</details>
+
+<details>
     <summary>App Screens</summary>
-<img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/69de1274-8155-413e-8c27-4e636388a700" width="200" height="400"> 
-<img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/4cf942e4-49a6-4722-91fc-1415f7f8624d" width="200" height="400">
-<img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/6f9ca632-1ac4-475d-9448-669b5028fd32" width="200" height="400"> 
-<img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/01eb0873-6700-4163-b059-1915b15f0bbf" width="200" height="400">
-<img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/b0ff58de-a826-4c60-9cb2-7f5355abc9ec" width="200" height="400">
-  </details>
-</a>
+    <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/69de1274-8155-413e-8c27-4e636388a700" width="200" height="400"> 
+    <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/4cf942e4-49a6-4722-91fc-1415f7f8624d" width="200" height="400">
+    <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/6f9ca632-1ac4-475d-9448-669b5028fd32" width="200" height="400"> 
+    <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/01eb0873-6700-4163-b059-1915b15f0bbf" width="200" height="400">
+    <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/b0ff58de-a826-4c60-9cb2-7f5355abc9ec" width="200" height="400">
+</details>
