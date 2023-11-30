@@ -24,6 +24,12 @@ Purpose
 This project serves as a UIKit playground for experimenting with iOS app development.
 
 Explore and enjoy! 🚀!
+<a href="#">
+  <details>
+    <summary>Animation transition</summary>
+    <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/b931c11c-2758-4dc0-93f5-a7fd645104d2" alt="Animation transition">
+  </details>
+</a>
 <details>
   <summary><a href="#">Animation transition</summary>
   <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/b931c11c-2758-4dc0-93f5-a7fd645104d2" alt="Animation transition">
