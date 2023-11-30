@@ -26,19 +26,19 @@ This project serves as a UIKit playground for experimenting with iOS app develop
 Explore and enjoy! 🚀!
 <a href="#">
   <details>
-    <summary><a href="#">Animation transition</summary><ul>
+    <summary>Animation transition</summary><ul>
     <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/b931c11c-2758-4dc0-93f5-a7fd645104d2" alt="Animation transition">
   </details>
 </a>
 <a href="#">
   <details>
-    <summary><a href="#">Pagination</summary>
+    <summary>Pagination</summary>
     <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/0dfe3a2f-5a65-416f-90e8-529fd890c51f" alt="Pagination">
   </details>
 </a>
 <a href="#">
   <details>
-    <summary><a href="#">App Screens</summary>
+    <summary>App Screens</summary>
 <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/69de1274-8155-413e-8c27-4e636388a700" width="200" height="400"> 
 <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/4cf942e4-49a6-4722-91fc-1415f7f8624d" width="200" height="400">
 <img src="https://github.com/snipes1111/AppStoreJSONApis/assets/123557658/6f9ca632-1ac4-475d-9448-669b5028fd32" width="200" height="400"> 
