@@ -1,12 +1,11 @@
 # AppStoreJSONApis
 Welcome to the AppStoreJSONApis project! 
-This app replicates the classic App Store interface with experimental features, primarily utilizing UIKit instruments for iOS app development.
+This app replicates the classic App Store interface with experimental features, primarily utilizing UIKit instruments which one additional screen designed with SwiftUI.
 
 Main Features
 
-* UIKit Dominance: Most view controllers use UIKit. One screen is based on SwiftUI for technology exploration.
 * Data Fetching: Data retrieval with URLSession (+ generics).
-Interface Design: Recreated using UICollectionView and UITableView.
+* Interface Design: Recreated using UICollectionView and UITableView.
 
 App Sections
 
